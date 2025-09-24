@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head><title>Animals Cash — Daftar</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="css/styles.css" /></head>
+<body>
+  <div class="app">
+    <header class="topbar"><h1>Daftar</h1></header>
+    <main class="content">
+      <div class="card" style="max-width:520px;margin:0 auto">
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <button id="tab-reg-email" class="btn" type="button">Email</button>
+          <button id="tab-reg-phone" class="btn" type="button">Phone</button>
+        </div>
+        <form id="form-reg-email" class="form">
+          <input class="input" id="re-email" type="email" placeholder="Email" required />
+          <input class="input" id="re-pass" type="password" placeholder="Kata sandi" required />
+          <input class="input" id="re-name" type="text" placeholder="Nama tampilan" />
+          <button class="btn" type="submit">Daftar dengan Email</button>
+        </form>
+        <form id="form-reg-phone" class="form" style="display:none">
+          <input class="input" id="rp-phone" type="tel" placeholder="Nomor HP (e.g. 62812xxxx)" required />
+          <input class="input" id="rp-pass" type="password" placeholder="Kata sandi" required />
+          <input class="input" id="rp-name" type="text" placeholder="Nama tampilan" />
+          <button class="btn" type="submit">Daftar dengan HP</button>
+          <p class="muted">Metode ini memakai trik <b>phone-as-email</b> (tanpa OTP). Email semu: <code>NOHP@phone.local</code></p>
+        </form>
+        <p class="muted">Sudah punya akun? <a href="index.html">Masuk</a></p>
+      </div>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script type="module" src="js/features/register.js"></script>
+</body>
+</html>
