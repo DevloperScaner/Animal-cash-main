@@ -1,33 +1,39 @@
-import { auth, db, App } from './firebase-init.js';
-import { onAuthStateChanged, signOut, getIdTokenResult } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
 
-const dispName = document.getElementById('dispName');
-const logoutBtn = document.getElementById('logoutBtn');
-const adminLink = document.getElementById('adminLink');
-
-onAuthStateChanged(auth, async (user)=>{
-  if(!user){ location.href='index.html'; return; }
-  dispName.textContent = user.displayName || (user.email ?? 'User');
-
-  // check admin via user doc or custom claim
-  let isAdmin = false;
-  try{
-    const token = await getIdTokenResult(user);
-    if (token.claims && token.claims.admin === true) isAdmin = true;
-  }catch{}
-  if(!isAdmin){
-    const snap = await getDoc(doc(db, 'users', user.uid));
-    isAdmin = snap.exists() && snap.data().role === 'admin';
+// slider
+(function(){
+  const slides = document.getElementById('slides');
+  const dotsWrap = document.getElementById('dots');
+  if(!slides || !dotsWrap) return;
+  const count = slides.children.length;
+  let i=0, t=null;
+  const update=()=>{
+    slides.style.transform = `translateX(${-i*100}%)`;
+    dotsWrap.querySelectorAll('button').forEach((b,idx)=>b.classList.toggle('active', idx===i));
+  };
+  for(let k=0;k<count;k++){
+    const b=document.createElement('button');
+    b.addEventListener('click', ()=>{i=k; update(); restart()});
+    dotsWrap.appendChild(b);
   }
-  if(isAdmin) adminLink.style.display='inline-flex';
+  const next=()=>{i=(i+1)%count; update()};
+  const restart=()=>{clearInterval(t); t=setInterval(next, 3000)};
+  update(); restart();
+})();
 
-  logoutBtn?.addEventListener('click', async ()=>{
-    await signOut(auth);
-    location.href='index.html';
-  });
-});
+// top actions
+(function(){
+  const btnLang = document.getElementById('btnLang');
+  const menu = document.getElementById('langMenu');
+  if(btnLang && menu){
+    btnLang.addEventListener('click', ()=> menu.classList.toggle('show'));
+    menu.querySelectorAll('li').forEach(li=> li.addEventListener('click', ()=>{
+      App.i18n.set(li.dataset.lang);
+      menu.classList.remove('show');
+    }));
+  }
+  const btnNotif = document.getElementById('btnNotif');
+  btnNotif && btnNotif.addEventListener('click', ()=> App.toast('Tidak ada notifikasi baru'));
+})();
 
-// Tab demo
-document.getElementById('tab-farm')?.addEventListener('click', (e)=>{ e.preventDefault(); App.toast('Buka fitur Farm'); });
-document.getElementById('tab-profile')?.addEventListener('click', (e)=>{ e.preventDefault(); App.toast('Buka profil'); });
+// seed UI values
+App.setStats({total:0,q:0});
