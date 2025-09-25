@@ -1,4 +1,4 @@
-// js/config.js — FIXED (named export + bucket benar)
+
 export const firebaseConfig = {
   apiKey: "AIzaSyB7Xlu02Winh4wp2XDzw5592yE9_J-qiuM",
   authDomain: "investasi-hewan.firebaseapp.com",
@@ -7,6 +7,11 @@ export const firebaseConfig = {
   messagingSenderId: "180728484800",
   appId: "1:180728484800:web:f2fcd8e390b636dfb6ee25"
 };
-
-// OPTIONAL: pakai custom admin claim?
-export const useCustomAdminClaim = false;
+export const cloudinary = { cloudName: "dn1eh1jfi", uploadPreset: "Animal-cash-main" };
+export const defaults = {
+  loading: { durationMs: 10000, mode: "fixed", title: "ANIMALS CASH", theme: "rainbow" },
+  theme: { default: "system", accent: "#59d1ff", animatedBrand: true, seasonalActive: false, seasonalName: "" },
+  layout: { dashboardGrid: "2x4" },
+  withdraw: { min: 50000, fee: 3000, maxPerDay: 1 },
+  referral: { bonus: 5000 }
+};
