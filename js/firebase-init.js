@@ -14,16 +14,7 @@ export const App = {
     t.textContent=msg; t.style.display='block'; clearTimeout(this._t); this._t=setTimeout(()=>t.style.display='none',2500);
   },
   async setRemember(remember){ await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence); },
-  async ensureAppSettings(){
-    try{ const snap = await getDoc(doc(db,'appSettings','_root')); if(snap.exists()) return snap.data(); }catch(e){}
-    return defaults;
-  },
-  async initUserDoc(u){
-    const ref = doc(db,'users',u.uid);
-    const s = await getDoc(ref);
-    if(!s.exists()){
-      await setDoc(ref, { uid:u.uid, email:u.email||'', displayName:u.displayName||'User', role:'user', wallet:{ balance:0, quantitative:0 }, createdAt: serverTimestamp() });
-    }
-  },
+  async ensureAppSettings(){ try{ const snap = await getDoc(doc(db,'appSettings','_root')); if(snap.exists()) return snap.data(); }catch(e){} return defaults; },
+  async initUserDoc(u){ const ref=doc(db,'users',u.uid); const s=await getDoc(ref); if(!s.exists()){ await setDoc(ref, { uid:u.uid, email:u.email||'', displayName:u.displayName||'User', role:'user', wallet:{ balance:0, quantitative:0 }, createdAt: serverTimestamp() }); } },
   async signOutAll(){ await signOut(auth); location.href='index.html'; }
 };
