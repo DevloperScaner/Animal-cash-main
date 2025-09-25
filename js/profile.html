@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <title>Profil — Animals Cash</title>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1 class="brand">ANIMALS CASH</h1>
+      <div class="controls">
+        <a class="btn" href="dashboard.html">Kembali</a>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="card">
+        <div class="grid-2">
+          <div>
+            <div class="muted">Nama</div>
+            <div class="stat" id="pName">-</div>
+          </div>
+          <div>
+            <div class="muted">Email</div>
+            <div class="stat" id="pEmail">-</div>
+          </div>
+          <div>
+            <div class="muted">UID</div>
+            <div class="stat small" id="pUid">-</div>
+          </div>
+          <div>
+            <div class="muted">Role</div>
+            <div class="stat" id="pRole"><span class="badge">user</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:12px">
+        <h3>Riwayat</h3>
+        <div class="selector">
+          <button class="btn" id="tabBonus">Bonus Referral</button>
+          <button class="btn" id="tabWd">Penarikan</button>
+        </div>
+        <div id="history" style="margin-top:8px">Memuat…</div>
+      </section>
+    </main>
+
+    <nav class="tabbar">
+      <a href="dashboard.html" class="tab">Rumah</a>
+      <a href="farm.html" class="tab">Farm</a>
+      <a href="invite/index.html" class="tab">Mengundang</a>
+      <a href="profile.html" class="tab active">Aku</a>
+    </nav>
+  </div>
+
+  <script type="module" src="js/i18n.js"></script>
+  <script type="module" src="js/app-core.js"></script>
+  <script type="module" src="js/features/profile.js"></script>
+</body>
+</html>
