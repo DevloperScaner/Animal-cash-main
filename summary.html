@@ -1,42 +1,25 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link rel="stylesheet" href="css/styles.css"/>
-  <title>Ringkasan Farm — Animals Cash</title>
-</head>
-<body>
-  <div class="app">
-    <header class="topbar">
-      <h1 class="brand">ANIMALS CASH</h1>
-      <div class="controls"><a class="btn" href="dashboard.html">Kembali</a></div>
-    </header>
-    <main class="content">
-      <section class="card">
-        <h3>Ringkasan Farm</h3>
-        <div class="grid-2">
-          <div class="card small"><div class="muted">Aset Keuntungan</div><div class="stat">Rp <span id="sum-profit">0</span></div></div>
-          <div class="card small"><div class="muted">Penghasilan Hari Ini</div><div class="stat">Rp <span id="sum-today">0</span></div></div>
-          <div class="card small"><div class="muted">Total Pendapatan</div><div class="stat">Rp <span id="sum-total">0</span></div></div>
-          <div class="card small"><div class="muted">Jumlah Hari yang Dapat Dihitung</div><div class="stat"><span id="sum-days">0</span></div></div>
-        </div>
-        <div class="card small" style="margin-top:12px">
-          <div class="muted">Hari Hitung Mundur</div><div class="stat"><span id="sum-countdown">0</span></div>
-        </div>
-        <a class="btn" style="margin-top:12px" href="profile.html#transactions">Catatan transaksi › <span id="sum-tx">0 / 0</span></a>
-        <div id="sum-error" class="small" style="margin-top:8px;color:#f88"></div>
-      </section>
-    </main>
-    <nav class="tabbar">
-      <a href="dashboard.html" class="tab">Rumah</a>
-      <a href="farm.html" class="tab">Farm</a>
-      <a href="invite/index.html" class="tab">Mengundang</a>
-      <a href="profile.html" class="tab">Aku</a>
-    </nav>
-  </div>
-  <script type="module" src="js/i18n.js"></script>
-  <script type="module" src="js/app-core.js"></script>
-  <script type="module" src="js/features/farm-summary.js"></script>
-</body>
-</html>
+<html lang="id"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ringkasan Farm</title>
+<link rel="stylesheet" href="css/styles.css"/></head>
+<body><div class="app">
+<header class="topbar"><h1 class="brand">Ringkasan Farm</h1></header>
+<main class="content">
+  <section class="card">
+    <div class="kpi">
+      <div class="box"><div class="label">Aset Keuntungan</div><div id="assetProfit" class="stat">0.00</div></div>
+      <div class="box"><div class="label">Penghasilan Hari Ini</div><div id="incomeToday" class="stat">0</div></div>
+      <div class="box"><div class="label">Total Pendapatan</div><div id="incomeTotal" class="stat">0.00</div></div>
+      <div class="box"><div class="label">Jumlah Hari yang Dapat Dihitung</div><div id="daysCount" class="stat">0</div></div>
+    </div>
+    <div class="box" style="margin-top:12px"><div class="label">Hari Hitung Mundur</div><div id="countdown" class="stat">0</div></div>
+  </section>
+</main>
+<nav class="tabbar">
+  <a class="tab" href="dashboard.html">🏠<span>Rumah</span></a>
+  <a class="tab" href="farm.html">🐮<span>Farm</span></a>
+  <a class="tab" href="invite/index.html">✉️<span>Mengundang</span></a>
+  <a class="tab" href="profile.html">👤<span>Aku</span></a>
+</nav>
+<script type="module" src="js/farm-summary.js"></script>
+</div></body></html>
