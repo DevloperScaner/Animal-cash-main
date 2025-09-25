@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Admin — Orders</title><link rel="stylesheet" href="../css/styles.css"/></head>
+<body><div class="app"><header class="topbar"><h1 class="brand">ANIMALS CASH — Admin</h1><div class="controls"><button id="logoutBtn" class="btn red">Logout</button></div></header>
+<main class="content">
+<section class="card">
+    <div class="row" style="margin-bottom:12px;gap:8px;flex-wrap:wrap">
+      <a class="btn " href="dashboard.html">Dashboard</a>
+      <a class="btn blue" href="orders.html">Orders</a>
+      <a class="btn " href="withdrawals.html">Withdrawals</a>
+      <a class="btn " href="referrals.html">Referrals</a>
+      <a class="btn " href="settings.html">Settings</a>
+      <a class="btn" href="../dashboard.html">User View</a>
+    </div><div id="root">Memuat…</div></section></main></div>
+<script type="module">
+import { auth } from '../js/firebase-init.js';
+import { signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
+document.getElementById('logoutBtn').onclick=()=>signOut(auth).then(()=>location.href='../index.html');
+onAuthStateChanged(auth,(u)=>{ if(!u) location.href='../index.html'; });
+</script>
+</body></html><script type='module' src='../js/admin/orders.js'></script>

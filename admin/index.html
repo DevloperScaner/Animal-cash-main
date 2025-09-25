@@ -1,27 +1,4 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<link rel="stylesheet" href="../css/styles.css"/><link rel="stylesheet" href="admin.css"/><title>Admin</title></head>
-<body><div class="app"><header class="topbar"><h1 class="brand">ANIMALS CASH — Admin</h1><div class="controls"><a class="btn" href="../dashboard.html">User View</a><button id="logoutBtn" class="btn red">Logout</button></div></header>
-<main class="content admin"><section class="card"><div class="admin-nav">
-<button class="btn" data-v="dash">Dashboard</button><button class="btn" data-v="orders">Orders</button>
-<button class="btn" data-v="wd">Withdrawals</button><button class="btn" data-v="refs">Referrals</button>
-</div><div id="adminView">Pilih menu di atas.</div></section></main></div>
-<script type="module">
-import { auth } from '../js/firebase-init.js';
-import { signOut } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
-import { renderAdminOrders } from '../js/admin/orders.js';
-import { renderAdminWithdrawals } from '../js/admin/withdrawals.js';
-import { renderAdminReferrals } from '../js/admin/referrals.js';
-document.getElementById('logoutBtn').addEventListener('click',async()=>{ await signOut(auth); location.href='../index.html'; });
-const view = document.getElementById('adminView');
-function renderDash(){ view.innerHTML = `<section class="card"><h3>Ringkasan</h3><div class="grid-2">
-  <div class="card small">Orders Pending<div class="stat" id="metOrders">-</div></div>
-  <div class="card small">Withdraw Pending<div class="stat" id="metWd">-</div></div>
-</div></section>`; }
-renderDash();
-document.querySelector('[data-v="orders"]').addEventListener('click',()=>renderAdminOrders());
-document.querySelector('[data-v="wd"]').addEventListener('click',()=>renderAdminWithdrawals());
-document.querySelector('[data-v="refs"]').addEventListener('click',()=>renderAdminReferrals());
-document.querySelector('[data-v="dash"]').addEventListener('click',()=>renderDash());
-</script>
-</body></html>
+<meta http-equiv="refresh" content="0; url=dashboard.html"/>
+<title>Admin</title></head><body></body></html>
