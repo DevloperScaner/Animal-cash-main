@@ -1,108 +1,28 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <title>Animals Cash — Dashboard</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
-<body>
-  <div class="app">
-    <header class="topbar">
-      <h1>Animals Cash</h1>
-      <div style="display:flex;gap:8px;align-items:center">
-        <a id="adminLink" class="btn" href="admin/index.html" style="display:none">Admin</a>
-        <button id="logoutBtn" class="btn red" type="button">Logout</button>
-      </div>
-    </header>
-
-    <main class="content">
-      <section class="card">
-        <div class="grid">
-          <!-- SETIAP TILE SEKARANG BUKA HALAMAN SENDIRI -->
-          <a class="tile" href="menarik.html">
-            <span class="icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg>
-            </span>
-            <span class="label">Menarik</span>
-          </a>
-
-          <a class="tile" href="membantu.html">
-            <span class="icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-5.5 8-12a8 8 0 1 0-16 0c0 6.5 8 12 8 12z"/><circle cx="12" cy="10" r="3"/></svg>
-            </span>
-            <span class="label">Membantu</span>
-          </a>
-
-          <a class="tile" href="tim.html">
-            <span class="icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 20a5 5 0 0 1 10 0"/><path d="M11 20a5 5 0 0 1 10 0"/></svg>
-            </span>
-            <span class="label">Tim</span>
-          </a>
-
-          <a class="tile" href="aktivitas.html">
-            <span class="icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
-            </span>
-            <span class="label">Aktivitas</span>
-          </a>
-
-          <a class="tile" href="invite/index.html">
-            <span class="icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            </span>
-            <span class="label">Mengundang teman</span>
-          </a>
-
-          <a class="tile" href="agen.html">
-            <span class="icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c2.8 0 5-2.2 5-5s-2.2-5-5-5-5 2.2-5 5 2.2 5 5 5z"/><path d="M2 22c1.5-4.5 5.3-7 10-7s8.5 2.5 10 7"/></svg>
-            </span>
-            <span class="label">Kerjasama Agen</span>
-          </a>
-
-          <a class="tile" href="berita.html">
-            <span class="icon">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
-            </span>
-            <span class="label">Berita</span>
-          </a>
-        </div>
-      </section>
-
-      <section class="card" style="margin-top:12px">
-        <h3 style="margin:0 0 8px 0">Ringkasan</h3>
-        <p class="muted">Selamat datang, <span id="dispName">User</span>.</p>
-      </section>
-    </main>
-
-    <!-- TABBAR: arahkan ke halaman masing-masing -->
-    <nav class="tabbar">
-      <a href="dashboard.html" class="tab active">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
-        <span>Rumah</span>
-      </a>
-
-      <a href="farm.html" class="tab">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7c-1.5-1-3-1-4 0-1 1 0 3 1.5 3.5"/><path d="M17 7c1.5-1 3-1 4 0 1 1 0 3-1.5 3.5"/><path d="M6 11a6 6 0 0 0 12 0v-1a3 3 0 0 0-3-3H9a3 3 0 0 0-3 3v1z"/><circle cx="10" cy="12" r="1"/><circle cx="14" cy="12" r="1"/><path d="M12 14v2"/></svg>
-        <span>Farm</span>
-      </a>
-
-      <a href="invite/index.html" class="tab">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-        <span>Mengundang teman</span>
-      </a>
-
-      <a href="profile.html" class="tab">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a8.7 8.7 0 0 1 13 0"/></svg>
-        <span>Aku</span>
-      </a>
-    </nav>
+<!DOCTYPE html><html lang='id'><head><title>Dashboard</title><meta charset='utf-8' /><meta name='viewport' content='width=device-width, initial-scale=1' /><link rel='stylesheet' href='css/styles.css' /></head><body><div class='app'><header class='topbar'><h1 class='brand'>ANIMALS CASH</h1><div class='controls' id='hdrCtrls'></div></header><main class='content'>
+<div class='slider card'>
+  <div class='slides' id='homeSlides'>
+    <div class='slide'><div><h3>Sheep — Bonus 15%</h3><p class='small'>Promo terbatas</p></div><img src='img/sheep.png' alt='sheep'></div>
+    <div class='slide'><div><h3>Buffalo — Bonus 20%</h3><p class='small'>Kuat dan stabil</p></div><img src='img/buffalo.png' alt='buffalo'></div>
+    <div class='slide'><div><h3>Fish — Bonus 10%</h3><p class='small'>Panen cepat</p></div><img src='img/fish.png' alt='fish'></div>
   </div>
-
-  <div id="toast" class="toast"></div>
-  <!-- dashboard.js boleh tetap dipakai untuk greet & cek admin -->
-  <script type="module" src="js/dashboard.js"></script>
-</body>
-</html>
+  <div class='dots'><span class='dot'></span><span class='dot'></span><span class='dot'></span></div>
+</div>
+<section class='card' style='margin-top:10px'>
+  <div style='display:grid;grid-template-columns:repeat(2,1fr);gap:10px'>
+    <div class='card'><div class='small'>Total Aset</div><div id='kpiAssets' style='font-weight:800;font-size:20px'>Rp 0</div></div>
+    <div class='card'><div class='small'>Akun Kuantitatif</div><div id='kpiQuant' style='font-weight:800;font-size:20px'>Rp 0</div></div>
+  </div>
+</section>
+<section class='card' style='margin-top:12px'>
+  <div class='grid'>
+    <a class='tile' href='farm.html'><span class='icon'>🐄</span><span class='label'>Farm</span></a>
+    <a class='tile' href='invite/index.html'><span class='icon'>✉</span><span class='label'>Mengundang</span></a>
+    <a class='tile' href='tim.html'><span class='icon'>👥</span><span class='label'>Tim</span></a>
+    <a class='tile' href='berita.html'><span class='icon'>📰</span><span class='label'>Berita</span></a>
+    <a class='tile' href='contact.html'><span class='icon'>💬</span><span class='label'>Contact</span></a>
+    <a class='tile' href='aktivitas.html'><span class='icon'>📜</span><span class='label'>Aktivitas</span></a>
+    <a class='tile' href='profile.html'><span class='icon'>👤</span><span class='label'>Aku</span></a>
+    <button class='tile' id='logoutBtn'><span class='icon'>🚪</span><span class='label'>Keluar</span></button>
+  </div>
+</section>
+</main><nav class='tabbar'><a href='dashboard.html' class='tab'><span>Rumah</span></a><a href='farm.html' class='tab'><span>Farm</span></a><a href='invite/index.html' class='tab'><span>Mengundang</span></a><a href='profile.html' class='tab'><span>Aku</span></a></nav></div><div id='toast' class='toast'></div><script type='module' src='js/features/dashboard.js'></script></body></html>
