@@ -1,14 +1,69 @@
-
 import { db } from '../firebase-init.js';
-import { collection, query, where, orderBy, getDocs, updateDoc, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
-window.renderAdminOrders = async function(){
-  const el=document.getElementById('adminView');
-  el.innerHTML=`<section class='card'><h3>Orders Pending</h3><table id='tOrders'><thead><tr><th>Tanggal</th><th>User</th><th>Produk</th><th>Harga</th><th>Bukti</th><th>Aksi</th></tr></thead><tbody></tbody></table></section>`;
-  const tb=el.querySelector('#tOrders tbody');
-  const qy=query(collection(db,'orders'), where('status','==','pending'), orderBy('createdAt','desc'));
-  const snap=await getDocs(qy); tb.innerHTML='';
-  for(const d of snap.docs){ const x=d.data(); const t=x.createdAt?.toDate?x.createdAt.toDate().toLocaleString('id-ID'):'-';
-    const tr=document.createElement('tr'); tr.innerHTML=`<td>${t}</td><td>${x.uid}</td><td>${x.productName}</td><td>Rp ${new Intl.NumberFormat('id-ID').format(x.price)}</td><td><a href='${x.proofUrl}' target='_blank'>Lihat</a></td><td><button class='btn green' data-approve='${d.id}'>Approve</button> <button class='btn red' data-reject='${d.id}'>Reject</button></td>`; tb.appendChild(tr); }
-  tb.addEventListener('click', async (e)=>{ const a=e.target.closest('button[data-approve]'); const r=e.target.closest('button[data-reject]'); if(a){ await approve(a.dataset.approve); window.render('orders'); } if(r){ await updateDoc(doc(db,'orders',r.dataset.reject), { status:'rejected' }); window.render('orders'); } });
-};
-async function approve(id){ const {getDoc}=await import('https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js'); const ref=doc(db,'orders',id); const s=await getDoc(ref); if(!s.exists())return; const o=s.data(); const now=new Date(); const end=new Date(now.getTime()+(o.cycleDays||60)*86400000); await setDoc(doc(db,'users',o.uid,'holdings',o.productId), { productId:o.productId, productName:o.productName, price:o.price, dailyIncome:o.dailyIncome, totalIncome:o.totalIncome, cycleDays:o.cycleDays, startAt:now, endAt:end, status:'active', createdAt:now }); await updateDoc(ref, { status:'approved', approvedAt:new Date() }); }
+import { collection, getDocs, query, orderBy, updateDoc, doc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
+
+const f = new Intl.NumberFormat('id-ID');
+
+export async function renderAdminOrders(){
+  const root = document.getElementById('adminView');
+  root.innerHTML = `<section class="card">
+      <h3>Orders Pending</h3>
+      <div id="ordersTable" class="table"></div>
+    </section>`;
+
+  const tbl = document.getElementById('ordersTable');
+
+  try {
+    // Tidak pakai filter status dulu agar tidak perlu index komposit; kita filter di sisi client
+    const snap = await getDocs(query(collection(db,'orders'), orderBy('createdAt','desc')));
+    const rows = [];
+    snap.forEach(d=>{
+      const x = d.data(); x.id = d.id;
+      if ((x.status||'pending') === 'pending') rows.push(x);
+    });
+
+    if (rows.length === 0){
+      tbl.innerHTML = `<div class="small">Belum ada order pending.</div>`;
+      return;
+    }
+
+    let html = `<table>
+      <thead><tr><th>Tanggal</th><th>User</th><th>Produk</th><th>Harga</th><th>Bukti</th><th>Aksi</th></tr></thead><tbody>`;
+    for(const x of rows){
+      const t = x.createdAt?.toDate ? x.createdAt.toDate().toLocaleString('id-ID') : '-';
+      const proof = x.proofUrl ? `<a class="btn small" href="${x.proofUrl}" target="_blank">Lihat</a>` : '-';
+      html += `<tr>
+        <td>${t}</td>
+        <td>${x.userEmail || x.uid}</td>
+        <td>${x.productName || x.productId}</td>
+        <td>Rp ${f.format(x.price||0)}</td>
+        <td>${proof}</td>
+        <td>
+          <button class="btn small green" data-act="approve" data-id="${x.id}">Approve</button>
+          <button class="btn small red" data-act="reject" data-id="${x.id}">Reject</button>
+        </td>
+      </tr>`;
+    }
+    html += `</tbody></table>`;
+    tbl.innerHTML = html;
+
+    tbl.addEventListener('click', async (e)=>{
+      const btn = e.target.closest('button[data-act]'); if(!btn) return;
+      const id = btn.dataset.id; const act = btn.dataset.act;
+      btn.disabled = true;
+      try {
+        const ref = doc(db,'orders',id);
+        await updateDoc(ref, { status: act === 'approve' ? 'approved' : 'rejected', updatedAt: serverTimestamp() });
+        // Refresh list
+        renderAdminOrders();
+      } catch(err){
+        alert('Gagal: ' + (err?.message || err));
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+  } catch(err){
+    tbl.innerHTML = `<div class="small">Gagal memuat orders: ${err?.message || err}</div>`;
+  }
+}
+window.renderAdminOrders = renderAdminOrders;
