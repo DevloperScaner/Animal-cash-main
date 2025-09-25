@@ -1,30 +1,57 @@
-<!-- PATCH: add tile Ringkasan Farm to your dashboard grid -->
-<!-- replace your dashboard.html with this file if needed -->
 <!DOCTYPE html>
 <html lang="id">
-<head><title>Animals Cash — Dashboard</title><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="css/styles.css" /></head>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
+  <title>Animals Cash — Dashboard</title>
+</head>
 <body>
   <div class="app">
     <header class="topbar">
       <h1 class="brand">ANIMALS CASH</h1>
-      <div class="controls">
+      <div class="top-icons">
+        <button id="notifBtn" class="iconbtn" title="Notifikasi">🔔</button>
+        <button id="langBtn" class="iconbtn" title="Bahasa">🌐</button>
         <a id="adminLink" class="btn" href="admin/index.html" style="display:none">Admin</a>
         <button id="logoutBtn" class="btn red" type="button">Logout</button>
       </div>
     </header>
     <main class="content">
-      <section class="card">
-        <div class="grid">
-          <a class="tile" href="summary.html"><span class="icon">📊</span><span class="label">Ringkasan Farm</span></a>
-          <a class="tile" href="farm.html"><span class="icon">🐮</span><span class="label">Farm</span></a>
-          <a class="tile" href="invite/index.html"><span class="icon">✉️</span><span class="label">Mengundang</span></a>
-          <a class="tile" href="team.html"><span class="icon">👥</span><span class="label">Tim</span></a>
-          <a class="tile" href="news.html"><span class="icon">📰</span><span class="label">Berita</span></a>
-          <a class="tile" href="contact.html"><span class="icon">💬</span><span class="label">Contact</span></a>
-          <a class="tile" href="activity.html"><span class="icon">📜</span><span class="label">Aktivitas</span></a>
-          <a class="tile" href="profile.html"><span class="icon">👤</span><span class="label">Aku</span></a>
+      <section class="card hero">
+        <div class="slides" id="slides">
+          <div class="slide"><div><h2>Fish — Bonus 10%</h2><p>Panen cepat</p></div><img src="img/fish.png" alt="fish" style="height:90px;opacity:.95"/></div>
+          <div class="slide"><div><h2>Buffalo — Bonus 8%</h2><p>Tahan banting</p></div><img src="img/buffalo.png" alt="buffalo" style="height:90px;opacity:.95"/></div>
+          <div class="slide"><div><h2>Sheep — Bonus 15%</h2><p>Bonus musiman</p></div><img src="img/sheep.png" alt="sheep" style="height:90px;opacity:.95"/></div>
         </div>
+        <div class="dots" id="heroDots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      </section>
+      <section class="card" style="margin-top:12px">
+        <div class="grid-pages" id="gridPager">
+          <div class="grid-page">
+            <div class="grid">
+              <a class="tile" href="summary.html"><span class="icon">📊</span><span class="label">Ringkasan Farm</span></a>
+              <a class="tile" href="farm.html"><span class="icon">🐄</span><span class="label">Farm</span></a>
+              <a class="tile" href="invite/index.html"><span class="icon">✉️</span><span class="label">Mengundang</span></a>
+              <a class="tile" href="team.html"><span class="icon">👥</span><span class="label">Tim</span></a>
+              <a class="tile" href="news.html"><span class="icon">📰</span><span class="label">Berita</span></a>
+              <a class="tile" href="contact.html"><span class="icon">💬</span><span class="label">Contact</span></a>
+              <a class="tile" href="activity.html"><span class="icon">📜</span><span class="label">Aktivitas</span></a>
+              <a class="tile" href="profile.html"><span class="icon">👤</span><span class="label">Aku</span></a>
+            </div>
+          </div>
+          <div class="grid-page">
+            <div class="grid">
+              <a class="tile" href="withdraw.html"><span class="icon">💸</span><span class="label">Menarik</span></a>
+              <a class="tile" href="faq.html"><span class="icon">❓</span><span class="label">Bantuan</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="card" style="margin-top:12px">
+        <h3 style="margin:0 0 8px 0">Ringkasan</h3>
+        <p class="muted">Selamat datang, <span id="dispName">User</span>.</p>
       </section>
     </main>
     <nav class="tabbar">
@@ -35,6 +62,9 @@
     </nav>
   </div>
   <div id="toast" class="toast"></div>
-  <script type="module" src="js/dashboard.js"></script>
+  <script type="module" src="js/i18n.js"></script>
+  <script type="module" src="js/app-core.js"></script>
+  <script type="module" src="js/features/dashboard-fix.js"></script>
+  <script type="module" src="js/features/home-ui.js"></script>
 </body>
 </html>
