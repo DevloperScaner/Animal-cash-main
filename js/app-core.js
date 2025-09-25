@@ -1,12 +1,4 @@
-// Minimal App core (toast)
-export const App = window.App || {};
-(function(){
-  const toast = document.getElementById('toast');
-  App.toast = (msg)=>{
-    if(!toast){ alert(msg); return; }
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(()=>toast.classList.remove('show'), 2000);
-  };
-  window.App = App;
-})();
+
+export const $ = (q)=>document.querySelector(q);
+export const $$ = (q)=>[...document.querySelectorAll(q)];
+export function toast(msg){ const t = $('#toast'); if(!t) return; t.textContent = msg; t.style.display='block'; setTimeout(()=> t.style.display='none', 2000); }
