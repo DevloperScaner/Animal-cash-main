@@ -1,7 +1,47 @@
 import { db } from '../firebase-init.js';
-import { collection, getDocs, query, orderBy, updateDoc, doc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
+import { collection, getDocs, query, orderBy, updateDoc, doc, serverTimestamp, addDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
 
 const f = new Intl.NumberFormat('id-ID');
+
+async function createHoldingFromOrder(x){
+  // x: order data
+  try{
+    const startAt = new Date();
+    const cycle = Number(x.cycleDays || x.cycle || 0);
+    const endAt = new Date(startAt.getTime() + Math.max(0, cycle)*86400000);
+
+    // Try get product meta if not present on order
+    let dailyIncome = x.dailyIncome, totalIncome = x.totalIncome, productName = x.productName;
+    if((dailyIncome==null || totalIncome==null || !productName) && x.productId){
+      try{
+        const p = await getDoc(doc(db,'products', x.productId));
+        if(p.exists()){
+          const pd = p.data();
+          productName = productName || pd.name;
+          dailyIncome = dailyIncome ?? pd.dailyIncome;
+          totalIncome = totalIncome ?? pd.totalIncome;
+        }
+      }catch(_){}
+    }
+
+    await addDoc(collection(db,'users', x.uid, 'holdings'), {
+      orderId: x.id || x.orderId || null,
+      productId: x.productId || null,
+      productName: productName || 'Item',
+      price: Number(x.price||0),
+      dailyIncome: Number(dailyIncome||0),
+      totalIncome: Number(totalIncome||0),
+      cycleDays: cycle,
+      startAt: startAt,
+      endAt: endAt,
+      status: 'active',
+      createdAt: serverTimestamp()
+    });
+  }catch(err){
+    console.error('createHoldingFromOrder failed', err);
+    throw err;
+  }
+}
 
 export async function renderAdminOrders(){
   const root = document.getElementById('adminView');
@@ -13,7 +53,6 @@ export async function renderAdminOrders(){
   const tbl = document.getElementById('ordersTable');
 
   try {
-    // Tidak pakai filter status dulu agar tidak perlu index komposit; kita filter di sisi client
     const snap = await getDocs(query(collection(db,'orders'), orderBy('createdAt','desc')));
     const rows = [];
     snap.forEach(d=>{
@@ -52,7 +91,15 @@ export async function renderAdminOrders(){
       btn.disabled = true;
       try {
         const ref = doc(db,'orders',id);
+        // read order
+        const listSnap = await getDocs(query(collection(db,'orders')));
+        let data = null;
+        listSnap.forEach(d=>{ if(d.id===id){ data = d.data(); data.id=d.id; }});
+        // Update status
         await updateDoc(ref, { status: act === 'approve' ? 'approved' : 'rejected', updatedAt: serverTimestamp() });
+        if (act === 'approve' && data && data.uid){
+          await createHoldingFromOrder(data);
+        }
         // Refresh list
         renderAdminOrders();
       } catch(err){
