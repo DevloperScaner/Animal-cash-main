@@ -1,7 +1,7 @@
 
 import { App, auth, db } from '../firebase-init.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
-import { addDoc, collection, serverTimestamp, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
+import { addDoc, collection, serverTimestamp, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
 import { cloudinary } from '../config.js';
 
 const MARKET=[
@@ -34,4 +34,5 @@ mClose?.addEventListener('click', close);
 list?.addEventListener('click', (e)=>{ const b=e.target.closest('button[data-buy]'); if(!b)return; const p=MARKET.find(x=>x.id===b.dataset.buy); if(p) open(p); });
 async function uploadProof(file){ const url=`https://api.cloudinary.com/v1_1/${cloudinary.cloudName}/image/upload`; const fd=new FormData(); fd.append('file',file); fd.append('upload_preset', cloudinary.uploadPreset); const r=await fetch(url,{method:'POST',body:fd}); if(!r.ok) throw new Error('Upload gagal'); const j=await r.json(); return j.secure_url; }
 mPay?.addEventListener('click', async ()=>{ try{ if(!U||!P) return; const file=fileEl.files?.[0]; if(!file){ App.toast('Pilih gambar bukti'); return; } mPay.disabled=true; mPay.textContent='Mengunggah...'; const proofUrl = await uploadProof(file); await addDoc(collection(db,'orders'),{ uid:U.uid, productId:P.id, productName:P.name, price:P.price, dailyIncome:P.daily, totalIncome:P.total, cycleDays:P.cycleDays, proofUrl, status:'pending', createdAt:serverTimestamp() }); App.toast('Bukti terkirim. Menunggu verifikasi admin.'); close(); }catch(err){ App.toast(err.message||'Gagal'); } finally{ mPay.disabled=false; mPay.textContent='Kirim Bukti'; } });
-onAuthStateChanged(auth, (u)=>{ if(!u){location.href='index.html';return;} U=u; });
+onAuthStateChanged(auth, async (u)=>{ if(!u){location.href='index.html';return;} U=u; disableOwned(u); });
+async function disableOwned(u){ const snap = await getDocs(collection(db,'users',u.uid,'holdings')); const active = new Set(); snap.forEach(d=>{ const x=d.data(); if(x.status==='active') active.add(x.productId); }); document.querySelectorAll('button[data-buy]').forEach(b=>{ if(active.has(b.dataset.buy)){ b.disabled = true; b.textContent='Terkunci'; } }); }

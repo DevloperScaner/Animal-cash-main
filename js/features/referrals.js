@@ -2,7 +2,6 @@
 import { auth, db } from '../firebase-init.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
 import { collection, getDocs, query, where, orderBy, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
-
 onAuthStateChanged(auth, async (u)=>{
   if(!u){ location.href='index.html'; return; }
   const tbody = document.querySelector('#refTable tbody');

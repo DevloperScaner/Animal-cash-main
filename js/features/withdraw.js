@@ -44,11 +44,9 @@ async function submitWd(){
   const amount   = parseInt(document.getElementById('amount').value,10);
   if(!provider || !accName || !accNo || !amount){ App.toast('Lengkapi data'); return; }
   if(amount < settings.withdraw.min){ App.toast('Minimal penarikan Rp '+settings.withdraw.min); return; }
-  // 1x/day check
   const day = new Date(); day.setHours(0,0,0,0);
   const q = query(collection(db,'withdrawals'), where('uid','==',currentUser.uid), where('createdDay','==',day.getTime()));
   const snap = await getDocs(q); if(snap.size >= settings.withdraw.maxPerDay){ App.toast('Kamu sudah melakukan penarikan hari ini. Coba lagi besok.'); return; }
-  // block if pending
   const q2 = query(collection(db,'withdrawals'), where('uid','==',currentUser.uid), where('status','==','pending'));
   const pend = await getDocs(q2); if(pend.size > 0){ App.toast('Pengajuan sebelumnya masih menunggu persetujuan admin. Tunggu approve admin dulu.'); return; }
   const fee = settings.withdraw.fee;
