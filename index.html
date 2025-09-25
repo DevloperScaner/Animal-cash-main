@@ -1,21 +1,121 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Animals Cash — Masuk</title>
-<link rel="stylesheet" href="css/styles.css"/></head>
-<body><div class="app">
-<header class="topbar"><h1 class="brand">ANIMALS CASH</h1><div class="row"><button class="btn blue" onclick="location.href='dashboard.html'">Lewati</button></div></header>
-<main class="content">
-  <section class="card" style="max-width:520px;margin:0 auto">
-    <h2>Masuk</h2>
-    <div class="row"><label class="label"><input id="remember" type="checkbox" checked/> Ingat saya</label></div>
-    <div class="row" style="flex-direction:column;gap:10px;align-items:stretch">
-      <input id="email" class="input" placeholder="Email"/>
-      <input id="pass" class="input" placeholder="Kata sandi" type="password"/>
-      <button class="btn blue" id="loginBtn">Masuk</button>
-      <div class="label">Belum punya akun? <a href="#" onclick="alert('Daftar via Firebase Auth.');return false;">Daftar</a></div>
-    </div>
-  </section>
-</main>
-<nav class="tabbar" style="display:none"></nav></div>
-<script type="module" src="js/login.js"></script>
-</body></html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Animals Cash — Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand rainbow">ANIMALS CASH</div>
+      <div class="top-actions">
+        <button class="icon-btn" id="btnNotif" aria-label="Notifications">
+          <span class="i-bell"></span>
+        </button>
+        <div class="lang-wrap">
+          <button class="icon-btn" id="btnLang" aria-haspopup="listbox" aria-expanded="false">
+            <span class="i-globe"></span>
+          </button>
+          <ul id="langMenu" class="lang-menu" role="listbox" aria-label="Pilih bahasa">
+            <li data-lang="id">Bahasa Indonesia</li>
+            <li data-lang="en">English</li>
+            <li data-lang="ms">Bahasa Melayu</li>
+            <li data-lang="vi">Tiếng Việt</li>
+            <li data-lang="th">ไทย</li>
+            <li data-lang="fil">Filipino</li>
+            <li data-lang="hi">हिन्दी</li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- Banner slider -->
+      <section class="banner">
+        <div class="slides" id="slides">
+          <div class="slide" style="--bg:#0f2233">
+            <img src="img/sheep.png" alt="sheep" class="hero" />
+            <div class="badge"><span>🐑 Sheep</span> — Bonus 15%</div>
+          </div>
+          <div class="slide" style="--bg:#0f2330">
+            <img src="img/buffalo.png" alt="buffalo" class="hero" />
+            <div class="badge"><span>🐃 Buffalo</span> — Bonus 12%</div>
+          </div>
+          <div class="slide" style="--bg:#0f2330">
+            <img src="img/fish.png" alt="fish" class="hero" />
+            <div class="badge"><span>🐟 Fish</span> — Bonus 10%</div>
+          </div>
+        </div>
+        <div class="dots" id="dots"></div>
+      </section>
+
+      <section class="cards2">
+        <article class="stat">
+          <div class="s-title">Total Aset</div>
+          <div class="s-value">Rp <span id="totalAsset">0</span></div>
+          <div class="s-sub">≈ Rp <span id="totalAssetSub">0</span></div>
+        </article>
+        <article class="stat">
+          <div class="s-title">Akun Kuantitatif</div>
+          <div class="s-value">Rp <span id="qBalance">0</span></div>
+          <div class="s-sub">≈ Rp <span id="qBalanceSub">0</span></div>
+        </article>
+      </section>
+
+      <!-- Grid 2x4 -->
+      <section class="gridwrap">
+        <div class="grid">
+          <a class="tile" href="ringkasan.html">
+            <span class="t-emoji">📊</span>
+            <span class="t-text">Ringkasan Farm</span>
+          </a>
+          <a class="tile" href="farm.html">
+            <span class="t-emoji">🐮</span>
+            <span class="t-text">Farm</span>
+          </a>
+          <a class="tile" href="invite.html">
+            <span class="t-emoji">✉️</span>
+            <span class="t-text">Mengundang</span>
+          </a>
+          <a class="tile" href="team.html">
+            <span class="t-emoji">👥</span>
+            <span class="t-text">Tim</span>
+          </a>
+          <a class="tile" href="news.html">
+            <span class="t-emoji">📰</span>
+            <span class="t-text">Berita</span>
+          </a>
+          <a class="tile" href="contact.html">
+            <span class="t-emoji">💬</span>
+            <span class="t-text">Contact</span>
+          </a>
+          <a class="tile" href="activity.html">
+            <span class="t-emoji">📜</span>
+            <span class="t-text">Aktivitas</span>
+          </a>
+          <a class="tile" href="profile.html">
+            <span class="t-emoji">👤</span>
+            <span class="t-text">Aku</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <nav class="tabbar">
+      <a class="tab active"><span class="ti">🏠</span><span>Rumah</span></a>
+      <a class="tab" href="farm.html"><span class="ti">🐮</span><span>Farm</span></a>
+      <a class="tab" href="invite.html"><span class="ti">✉️</span><span>Mengundang</span></a>
+      <a class="tab" href="profile.html"><span class="ti">👤</span><span>Aku</span></a>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="js/app-core.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
