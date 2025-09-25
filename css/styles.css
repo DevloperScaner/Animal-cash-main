@@ -55,3 +55,24 @@ a{color:inherit; text-decoration:none}
 .tab.active{opacity:1}
 .toast{position:fixed; left:50%; transform:translateX(-50%); bottom:80px; background:#0e2231; color:#fff; padding:12px 16px; border-radius:12px; box-shadow:var(--shadow); display:none}
 .toast.show{display:block}
+
+
+/* === Kieon-like polish === */
+:root{
+  --k-primary:#00E0FF;
+  --k-gradient: radial-gradient(1200px 400px at 50% -200px, rgba(0,224,255,0.2), transparent 60%),
+                linear-gradient(180deg, #091521 0%, #0A1A27 50%, #0B1F2E 100%);
+}
+body{ background: var(--k-gradient); }
+.brand{ letter-spacing:.08em; font-weight:800; font-size:24px; }
+.auth-card{max-width:520px;margin:24px auto;padding:22px 18px;border-radius:18px;background:var(--panel);box-shadow:var(--shadow)}
+.form .input, .form input[type=email], .form input[type=password], .form input[type=text]{ 
+  width:100%;border:1px solid var(--ring);background:var(--panel2);color:var(--text);border-radius:14px;padding:14px 14px;outline:none
+}
+.form .btn, .btn.primary{background:linear-gradient(90deg,#00E0FF,#7AF0C4);color:#06202C;border:none}
+.form .btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.tabbar{backdrop-filter:saturate(1.2) blur(8px)}
+.tile{transition:transform .15s ease, box-shadow .2s ease}
+.tile:active{transform:scale(.98); box-shadow:0 8px 18px rgba(0,0,0,.35)}
+/* banner bullets a bit larger */
+.banner .dots button{width:8px;height:8px}
