@@ -1,0 +1,11 @@
+
+/* Admin-only layout fixes */
+.content.admin { max-width: 1100px; margin: 0 auto; }
+.card { width: 100%; }
+.table { overflow-x: auto; }
+.table table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.06); white-space: nowrap; }
+@media (max-width: 680px){
+  .selector { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .table th, .table td { white-space: normal; }
+}
