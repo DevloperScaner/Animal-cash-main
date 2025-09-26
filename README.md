@@ -1,1 +1,0 @@
-Build v9 FULL: Inter font, glow, multi-bahasa, header notifications, referral capture, holdings countdown, disable double buy, withdraw rules (1x/day + 3k fee), admin panel tabs, QR+Cloudinary, Firestore rules & indexes.
