@@ -1,0 +1,75 @@
+
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — PETERNAKAN HEWAN</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="header">
+  <div class="inner">
+    <div class="brand">PETERNAKAN HEWAN</div>
+    <div class="actions">
+      <span class="pill" id="notifCount">🔔 0</span>
+      <label class="toggle">☀️<input data-theme-toggle type="checkbox">🌙</label>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="section"><div class="banner" id="banner">Banner — Slide Promo</div></div>
+
+  <div class="section card">
+    <div style="font-weight:800;margin-bottom:8px">Menu</div>
+    <div class="gridmenu">
+      <a href="withdraw.html" class="tile"><div class="ico">💳</div><div>Menarik</div></a>
+      <a href="contact.html" class="tile"><div class="ico">💬</div><div>Contact</div></a>
+      <a href="team.html" class="tile"><div class="ico">👥</div><div>Tim</div></a>
+      <a href="invite.html" class="tile"><div class="ico">✉️</div><div>Mengundang</div></a>
+      <a href="news.html" class="tile"><div class="ico">📰</div><div>Berita</div></a>
+      <a href="summary.html" class="tile"><div class="ico">📈</div><div>Ringkasan</div></a>
+      <a href="tasks.html" class="tile"><div class="ico">🗂️</div><div>Pusat Tugas</div></a>
+      <a href="admin/index.html" class="tile" data-admin-only style="display:none"><div class="ico">🛠️</div><div>Admin</div></a>
+    </div>
+  </div>
+
+  <div class="section card">
+    <div class="grid kpi">
+      <div class="box"><div class="label">Total Asset</div><div class="value" id="kAsset">Rp 0</div></div>
+      <div class="box"><div class="label">Akun Kuantitatif</div><div class="value" id="kSaldo">Rp 0</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="tabbar">
+  <div class="inner">
+    <a href="dashboard.html" class="tab active">🏠<div>Rumah</div></a>
+    <a href="farm.html" class="tab">🐮<div>Farm</div></a>
+    <a href="invite.html" class="tab">✉️<div>Mengundang</div></a>
+    <a href="profile.html" class="tab">👤<div>Aku</div></a>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+<script type="module">
+import { initTheme, requireAuth, checkMaintenance } from './js/app.js';
+import { auth, db } from './js/app.js';
+import { doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
+initTheme();
+requireAuth();
+window.pageReady = async ()=>{
+  await checkMaintenance();
+  const me = (window.App||{}).me;
+  document.getElementById('kSaldo').textContent = (me.saldo||0).toLocaleString('id-ID', {style:'currency', currency:'IDR'});
+  // simple asset: count active orders * price? We fetch orders active
+  const q = query(collection(db,'orders'), where('userId','==', me.uid), where('status','==','active'));
+  const snap = await getDocs(q);
+  let asset = 0;
+  snap.forEach(d=> asset += (d.data().price||0));
+  document.getElementById('kAsset').textContent = asset.toLocaleString('id-ID',{style:'currency',currency:'IDR'});
+};
+</script>
+</body>
+</html>

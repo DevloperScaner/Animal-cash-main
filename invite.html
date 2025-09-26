@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mengundang — PETERNAKAN HEWAN</title><link rel="stylesheet" href="css/styles.css"></head>
+<body>
+<div class="header"><div class="inner"><div class="brand">Mengundang</div><label class="toggle">☀️<input data-theme-toggle type="checkbox">🌙</label></div></div>
+<div class="container">
+  <div class="section grid kpi">
+    <div class="box"><div class="label">Total Bergabung</div><div class="value" id="join">0</div></div>
+    <div class="box"><div class="label">Bonus Referral</div><div class="value" id="bonus">Rp 0</div></div>
+  </div>
+  <div class="section card" id="code"></div>
+  <div class="section card">
+    <div style="font-weight:800;margin-bottom:8px">Tim</div>
+    <div id="team" class="grid"></div>
+  </div>
+</div>
+<div class="tabbar"><div class="inner">
+  <a href="dashboard.html" class="tab">🏠<div>Rumah</div></a>
+  <a href="farm.html" class="tab">🐮<div>Farm</div></a>
+  <a href="invite.html" class="tab active">✉️<div>Mengundang</div></a>
+  <a href="profile.html" class="tab">👤<div>Aku</div></a>
+</div></div>
+<div id="toast" class="toast"></div>
+<script type="module">
+import { initTheme, requireAuth, toast } from './js/app.js';
+import { db } from './js/app.js';
+import { collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
+initTheme();
+requireAuth();
+window.pageReady = async ()=>{
+  const me = (window.App||{}).me;
+  document.getElementById('code').innerHTML = `
+    <div style="font-weight:800">Kode Referral</div>
+    <div class="row" style="margin-top:8px">
+      <div class="pill" id="refcode">${me.refCode||'-'}</div>
+      <button class="btn good" id="copy">Salin Kode</button>
+      <button class="btn primary" id="copylink">Salin Link</button>
+    </div>
+  `;
+  document.getElementById('copy').onclick=()=>{ navigator.clipboard.writeText(me.refCode||''); toast('Kode disalin'); };
+  document.getElementById('copylink').onclick=()=>{
+    const url = location.origin + '/index.html?ref='+ (me.refCode||'');
+    navigator.clipboard.writeText(url); toast('Link disalin');
+  };
+
+  const q = query(collection(db,'referrals'), where('inviterId','==', me.uid));
+  onSnapshot(q,(snap)=>{
+    const team = document.getElementById('team'); team.innerHTML='';
+    let count = 0, bonus=0;
+    snap.forEach(d=>{
+      const r = d.data(); count++;
+      if(r.status==='approved') bonus += (r.bonus||0);
+      const el = document.createElement('div'); el.className='card';
+      el.innerHTML = `<div class="row" style="justify-content:space-between">
+        <div>${r.inviteeEmail||r.inviteeId}</div>
+        <div>${(r.bonus||0).toLocaleString('id-ID',{style:'currency',currency:'IDR'})}</div>
+        <div>${r.status}</div>
+      </div>`;
+      team.appendChild(el);
+    });
+    document.getElementById('join').textContent = count;
+    document.getElementById('bonus').textContent = bonus.toLocaleString('id-ID',{style:'currency',currency:'IDR'});
+  });
+};
+</script>
+</body>
+</html>

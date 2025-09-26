@@ -1,0 +1,48 @@
+
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — PETERNAKAN HEWAN</title><link rel="stylesheet" href="css/styles.css"></head>
+<body>
+<div class="header"><div class="inner"><div class="brand">Contact / Support</div><label class="toggle">☀️<input data-theme-toggle type="checkbox">🌙</label></div></div>
+<div class="container">
+  <div class="section card">
+    <div style="font-weight:800">Hubungi Kami</div>
+    <div class="row" style="margin-top:8px">
+      <div class="pill">✉️ support@peternakan.app</div>
+      <div class="pill">📞 +62 812-3456-7890</div>
+      <div class="pill">💬 Telegram</div>
+    </div>
+  </div>
+  <div class="section card">
+    <div style="font-weight:800">Kirim Pesan</div>
+    <div class="row" style="margin-top:8px">
+      <input id="nama" class="input" placeholder="Nama">
+      <input id="kontak" class="input" placeholder="Email / No. HP">
+    </div>
+    <div class="row"><textarea id="pesan" placeholder="Tulis pesan..."></textarea></div>
+    <div class="row" style="justify-content:flex-end"><button id="send" class="btn primary">Kirim</button></div>
+  </div>
+</div>
+<div class="tabbar"><div class="inner">
+  <a href="dashboard.html" class="tab">🏠<div>Rumah</div></a>
+  <a href="farm.html" class="tab">🐮<div>Farm</div></a>
+  <a href="invite.html" class="tab">✉️<div>Mengundang</div></a>
+  <a href="profile.html" class="tab">👤<div>Aku</div></a>
+</div></div>
+<div id="toast" class="toast"></div>
+<script type="module">
+import { initTheme, requireAuth, toast } from './js/app.js';
+import { db } from './js/app.js';
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+initTheme(); requireAuth();
+document.getElementById('send').onclick = async ()=>{
+  const name = nama.value.trim(), contact = kontak.value.trim(), msg = pesan.value.trim();
+  if(!name || !contact || !msg) return toast('Lengkapi form');
+  await addDoc(collection(db,'supportMessages'), { name, contact, msg, createdAt: serverTimestamp() });
+  toast('Terkirim. Admin akan menanggapi.');
+  nama.value = kontak.value = pesan.value = '';
+};
+</script>
+</body>
+</html>

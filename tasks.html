@@ -1,0 +1,57 @@
+
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pusat Tugas — PETERNAKAN HEWAN</title><link rel="stylesheet" href="css/styles.css"></head>
+<body>
+<div class="header"><div class="inner"><div class="brand">Pusat Tugas</div><label class="toggle">☀️<input data-theme-toggle type="checkbox">🌙</label></div></div>
+<div class="container">
+  <div id="tasks"></div>
+</div>
+<div class="tabbar"><div class="inner">
+  <a href="dashboard.html" class="tab">🏠<div>Rumah</div></a>
+  <a href="farm.html" class="tab">🐮<div>Farm</div></a>
+  <a href="invite.html" class="tab">✉️<div>Mengundang</div></a>
+  <a href="profile.html" class="tab">👤<div>Aku</div></a>
+</div></div>
+<input type="file" id="proof" accept="image/*" style="display:none"/>
+<div id="toast" class="toast"></div>
+<script type="module">
+import { initTheme, requireAuth, uploadProof, toast } from './js/app.js';
+import { db } from './js/app.js';
+import { collection, query, where, onSnapshot, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
+initTheme(); requireAuth();
+window.pageReady = async ()=>{
+  const me = (window.App||{}).me;
+  const wrap = document.getElementById('tasks');
+  onSnapshot(query(collection(db,'tasks'), where('active','==', true)), (snap)=>{
+    wrap.innerHTML='';
+    snap.forEach(d=>{
+      const t = d.data();
+      const el = document.createElement('div'); el.className='card'; el.style.marginTop='12px';
+      el.innerHTML = `<div class="row" style="justify-content:space-between;align-items:center">
+        <div><div style="font-weight:800">${t.title}</div><div class="small">${t.desc||''}</div></div>
+        <button class="btn primary" data-send="${d.id}">Kirim Bukti</button>
+      </div>`;
+      wrap.appendChild(el);
+    });
+    document.querySelectorAll('[data-send]').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const file = await pickFile(); if(!file) return;
+        const url = await uploadProof(file);
+        await addDoc(collection(db, `tasks/${btn.getAttribute('data-send')}/userTasks`), {
+          userId: me.uid, proofUrl: url, status:'pending', createdAt: serverTimestamp()
+        });
+        toast('Bukti terkirim. Menunggu review admin.');
+      });
+    });
+  });
+
+  function pickFile(){
+    return new Promise(res=>{ const i = document.getElementById('proof'); i.onchange=()=>res(i.files[0]||null); i.click(); });
+  }
+};
+</script>
+</body>
+</html>

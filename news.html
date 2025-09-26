@@ -1,0 +1,38 @@
+
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Berita — PETERNAKAN HEWAN</title><link rel="stylesheet" href="css/styles.css"></head>
+<body>
+<div class="header"><div class="inner"><div class="brand">Berita</div><label class="toggle">☀️<input data-theme-toggle type="checkbox">🌙</label></div></div>
+<div class="container">
+  <div class="section card" id="list"></div>
+</div>
+<div class="tabbar"><div class="inner">
+  <a href="dashboard.html" class="tab">🏠<div>Rumah</div></a>
+  <a href="farm.html" class="tab">🐮<div>Farm</div></a>
+  <a href="invite.html" class="tab">✉️<div>Mengundang</div></a>
+  <a href="profile.html" class="tab">👤<div>Aku</div></a>
+</div></div>
+<script type="module">
+import { initTheme, requireAuth } from './js/app.js';
+import { db } from './js/app.js';
+import { collection, orderBy, query, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+initTheme(); requireAuth();
+window.pageReady = async ()=>{
+  const list = document.getElementById('list');
+  onSnapshot(query(collection(db,'notifications'), orderBy('createdAt','desc')), (snap)=>{
+    list.innerHTML='';
+    snap.forEach(d=>{
+      const n = d.data();
+      const el = document.createElement('div'); el.className='card'; el.style.marginTop='8px';
+      el.innerHTML = `<div class="small">${n.type||'info'} • ${new Date(n.createdAt?.seconds*1000||Date.now()).toLocaleString('id-ID')}</div>
+        <div style="font-weight:800">${n.title||''}</div>
+        <div>${n.message||''}</div>`;
+      list.appendChild(el);
+    });
+  });
+};
+</script>
+</body>
+</html>
