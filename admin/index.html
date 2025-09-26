@@ -1,4 +1,151 @@
-<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta http-equiv="refresh" content="0; url=dashboard.html"/>
-<title>Admin</title></head><body></body></html>
+
+<!doctype html>
+<html lang="id">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Panel — PETERNAKAN HEWAN</title><link rel="stylesheet" href="../css/styles.css">
+<style>
+.wrap{display:grid;grid-template-columns:240px 1fr;gap:0;min-height:100vh}
+.aside{border-right:1px solid var(--line);background:var(--card);padding:14px}
+.menu .item{display:flex;gap:8px;padding:10px 12px;border-radius:12px;color:var(--muted);cursor:pointer}
+.menu .item.active{background:rgba(255,255,255,.06);color:var(--text)}
+.main{padding:16px}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{border-bottom:1px dashed var(--line);padding:10px 8px;text-align:left}
+</style>
+</head>
+<body>
+<div class="header"><div class="inner"><div class="brand">Admin Panel</div><div class="actions"><button class="btn bad" data-logout>Logout</button><label class="toggle">☀️<input data-theme-toggle type="checkbox">🌙</label></div></div></div>
+<div class="wrap">
+  <aside class="aside">
+    <div class="menu">
+      <div class="item active" data-page="orders">Orders</div>
+      <div class="item" data-page="withdrawals">Withdrawals</div>
+      <div class="item" data-page="users">Users</div>
+      <div class="item" data-page="settings">Settings</div>
+    </div>
+  </aside>
+  <main class="main">
+    <section id="page-orders">
+      <div class="card">
+        <div style="font-weight:800;margin-bottom:8px">Orders Pending</div>
+        <table class="table"><thead><tr><th>User</th><th>Produk</th><th>Harga</th><th>Aksi</th></tr></thead><tbody id="orders"></tbody></table>
+      </div>
+    </section>
+    <section id="page-withdrawals" style="display:none">
+      <div class="card">
+        <div style="font-weight:800;margin-bottom:8px">Withdrawals Pending</div>
+        <table class="table"><thead><tr><th>User</th><th>Metode</th><th>Nominal</th><th>Aksi</th></tr></thead><tbody id="wd"></tbody></table>
+      </div>
+    </section>
+    <section id="page-users" style="display:none">
+      <div class="card">
+        <div style="font-weight:800;margin-bottom:8px">Users</div>
+        <table class="table"><thead><tr><th>Email</th><th>UID</th><th>Saldo</th><th>Verif</th><th>Aksi</th></tr></thead><tbody id="users"></tbody></table>
+      </div>
+    </section>
+    <section id="page-settings" style="display:none">
+      <div class="card">
+        <div style="font-weight:800;margin-bottom:8px">Maintenance</div>
+        <div class="row">
+          <input id="maintMsg" class="input" placeholder="Pesan perbaikan">
+          <button id="maintOn" class="btn bad">Aktifkan</button>
+          <button id="maintOff" class="btn good">Nonaktifkan</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script type="module">
+import { initTheme, requireAuth, initLogout, toast } from '../js/app.js';
+import { db } from '../js/app.js';
+import { collection, query, where, onSnapshot, updateDoc, doc, serverTimestamp, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+
+initTheme(); requireAuth(); initLogout();
+window.pageReady = async ()=>{
+  const me = (window.App||{}).me;
+  if(!(me.role==='admin' || me.isAdmin)){ toast('Bukan admin'); location.href='../dashboard.html'; return; }
+
+  // Orders pending
+  onSnapshot(query(collection(db,'orders'), where('status','==','pending')), (snap)=>{
+    const tbody = document.getElementById('orders'); tbody.innerHTML='';
+    snap.forEach(d=>{
+      const o = d.data();
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${o.userId}</td><td>${o.productName}</td><td>${(o.price||0).toLocaleString('id-ID',{style:'currency',currency:'IDR'})}</td>
+        <td><button class="btn good" data-approve="${d.id}">Approve</button> <button class="btn bad" data-reject="${d.id}">Reject</button></td>`;
+      tbody.appendChild(tr);
+    });
+    document.querySelectorAll('[data-approve]').forEach(btn=> btn.onclick = ()=> approveOrder(btn.getAttribute('data-approve')));
+    document.querySelectorAll('[data-reject]').forEach(btn=> btn.onclick = ()=> rejectOrder(btn.getAttribute('data-reject')));
+  });
+
+  async function approveOrder(id){
+    await updateDoc(doc(db,'orders', id), { status:'active', locked:true, startDate: serverTimestamp() });
+    toast('Order approved');
+  }
+  async function rejectOrder(id){
+    await updateDoc(doc(db,'orders', id), { status:'rejected' });
+    toast('Order rejected');
+  }
+
+  // Withdrawals pending
+  onSnapshot(query(collection(db,'withdrawals'), where('status','==','pending')), (snap)=>{
+    const tbody = document.getElementById('wd'); tbody.innerHTML='';
+    snap.forEach(d=>{
+      const w = d.data();
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${w.userId}</td><td>${w.provider}</td><td>${(w.amount||0).toLocaleString('id-ID',{style:'currency',currency:'IDR'})}</td>
+        <td><button class="btn good" data-aw="${d.id}">Approve</button> <button class="btn bad" data-rw="${d.id}">Reject</button></td>`;
+      tbody.appendChild(tr);
+    });
+    document.querySelectorAll('[data-aw]').forEach(btn=> btn.onclick = ()=> approveWithdraw(btn.getAttribute('data-aw')));
+    document.querySelectorAll('[data-rw]').forEach(btn=> btn.onclick = ()=> rejectWithdraw(btn.getAttribute('data-rw')));
+  });
+
+  async function approveWithdraw(id){
+    await updateDoc(doc(db,'withdrawals', id), { status:'approved', processedAt: serverTimestamp() });
+    toast('Withdraw approved');
+  }
+  async function rejectWithdraw(id){
+    await updateDoc(doc(db,'withdrawals', id), { status:'rejected', processedAt: serverTimestamp() });
+    toast('Withdraw rejected');
+  }
+
+  // Users list
+  onSnapshot(collection(db,'users'), (snap)=>{
+    const tbody = document.getElementById('users'); tbody.innerHTML='';
+    snap.forEach(d=>{
+      const u = d.data();
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${u.email}</td><td>${d.id}</td><td>${(u.saldo||0).toLocaleString('id-ID',{style:'currency',currency:'IDR'})}</td>
+        <td>${u.verified ? '✔️' : '-'}</td>
+        <td><button class="btn good" data-von="${d.id}">Beri Centang</button> <button class="btn bad" data-voff="${d.id}">Cabut</button></td>`;
+      tbody.appendChild(tr);
+    });
+    document.querySelectorAll('[data-von]').forEach(b=> b.onclick=()=> updateDoc(doc(db,'users', b.getAttribute('data-von')), { verified:true }));
+    document.querySelectorAll('[data-voff]').forEach(b=> b.onclick=()=> updateDoc(doc(db,'users', b.getAttribute('data-voff')), { verified:false }));
+  });
+
+  // Maintenance
+  document.querySelector('.menu').addEventListener('click', (e)=>{
+    const it = e.target.closest('.item'); if(!it) return;
+    document.querySelectorAll('.menu .item').forEach(x=>x.classList.remove('active'));
+    it.classList.add('active');
+    ['orders','withdrawals','users','settings'].forEach(id=>{
+      document.getElementById('page-'+id).style.display = (it.dataset.page===id)?'':'none';
+    });
+  });
+
+  document.getElementById('maintOn').onclick = async ()=>{
+    await setDoc(doc(db,'settings','app'), { maintenanceActive:true, maintenanceMsg: maintMsg.value || 'Mohon maaf, web sedang dalam perbaikan.' }, { merge:true });
+    toast('Maintenance ON');
+  };
+  document.getElementById('maintOff').onclick = async ()=>{
+    await setDoc(doc(db,'settings','app'), { maintenanceActive:false }, { merge:true });
+    toast('Maintenance OFF');
+  };
+};
+</script>
+</body>
+</html>
