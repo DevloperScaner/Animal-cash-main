@@ -59,7 +59,7 @@ h1,h2,h3{margin:0}
 .tile .ttl{margin-top:10px; font-weight:800}
 
 /* TABBAR */
-.tabbar{position:fixed; left:0; right:0; bottom:0; padding:9px 9px 9px; background:linear-gradient(180deg, transparent, #0b121a 16%, #0b121a); display:flex; gap:12px; justify-content:center}
+.tabbar{position:fixed; left:0; right:0; bottom:0; padding:2px 2px 2px; background:linear-gradient(180deg, transparent, #0b121a 16%, #0b121a); display:flex; gap:12px; justify-content:center}
 .tab{display:flex; flex-direction:column; align-items:center; gap:6px; color:#cfe2ff; text-decoration:none; background:#131c26; border-radius:16px; padding:10px 16px; min-width:120px; box-shadow:0 12px 30px rgba(0,0,0,.35)}
 .tab span{font-size:22px}
 .tab.active{outline:2px solid #68c1ff}
