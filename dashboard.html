@@ -2,34 +2,81 @@
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Dashboard — Animals Cash</title>
 <link rel="stylesheet" href="./css/styles.css"/>
+<link rel="stylesheet" href="./css/home.css"/>
 </head><body>
 <div class="app">
   <header class="topbar">
     <div class="brand">PETERNAKAN HEWAN</div>
-    <div style="display:flex;gap:8px;align-items:center">
+    <div class="top-actions">
+      <button id="btnNotif" class="icon-btn" aria-label="Notifikasi">🔔</button>
+      <select id="langPicker" class="select-compact"><option value="id">ID</option><option value="en">EN</option></select>
       <a id="adminLink" class="btn" href="./admin/index.html" style="display:none">Admin</a>
       <button id="logoutBtn" class="btn red" type="button">Logout</button>
     </div>
   </header>
+
   <main class="content">
-    <section class="card banner"><div class="banner-inner"><div class="slide">Promo</div><div class="slide">Referral Bonus</div></div></section>
-    <section class="card" style="margin-top:12px">
-      <h3>Menu</h3>
-      <div class="swipe-grid">
-        <section class="page"><div class="icon-grid">
-          <a class="tile" href="./farm.html"><div class="icon">🐮</div><div class="label">Farm</div></a>
-          <a class="tile" href="./invite/index.html"><div class="icon">🤝</div><div class="label">Mengundang</div></a>
-          <a class="tile" href="./withdraw.html"><div class="icon">💳</div><div class="label">Menarik</div></a>
-          <a class="tile" href="./profile.html"><div class="icon">👤</div><div class="label">Aku</div></a>
-        </div></section>
-        <section class="page"><div class="icon-grid">
-          <a class="tile" href="./history.html"><div class="icon">🧾</div><div class="label">Riwayat</div></a>
-          <a class="tile" href="./holdings.html"><div class="icon">📦</div><div class="label">Ringkasan Farm</div></a>
-          <a class="tile" href="./settings.html"><div class="icon">⚙️</div><div class="label">Pengaturan</div></a>
-        </div></section>
+    <!-- HERO / BANNER -->
+    <section class="hero card" aria-label="Banner">
+      <div class="slides" id="heroSlides">
+        <div class="slide">
+          <div>
+            <h2>Bonus Referral Rp 5.000</h2>
+            <p>Undang temanmu, bonus otomatis masuk saldo.</p>
+          </div>
+          <img src="img/buffalo.png" alt="Buffalo bonus" class="slide-img" />
+        </div>
+        <div class="slide">
+          <div>
+            <h2>Panen Harian</h2>
+            <p>Pendapatan masuk setiap hari sesuai siklus.</p>
+          </div>
+          <img src="img/fish.png" alt="Fish bonus" class="slide-img" />
+        </div>
+        <div class="slide">
+          <div>
+            <h2>Keamanan Dana</h2>
+            <p>Verifikasi admin untuk setiap transaksi.</p>
+          </div>
+          <img src="img/cow.png" alt="Cow" class="slide-img" />
+        </div>
+      </div>
+      <div class="dots" id="heroDots"></div>
+    </section>
+
+    <!-- SUMMARY STRIP -->
+    <section class="stats card">
+      <div class="stat"><div class="stat-label">Total Asset</div><div class="stat-value" id="sumAssets">Rp0</div></div>
+      <div class="stat"><div class="stat-label">Akun Kuantitatif</div><div class="stat-value" id="sumAcc">0</div></div>
+      <div class="stat"><div class="stat-label">Holding Aktif</div><div class="stat-value" id="sumHold">0</div></div>
+    </section>
+
+    <!-- SWIPE GRID 3x4 -->
+    <section class="card">
+      <div class="grid-head"><h3>Menu</h3><div class="grid-indicators" id="gridDots"></div></div>
+      <div class="swipe-grid" id="menuGrid">
+        <section class="page">
+          <div class="icon-grid cols3">
+            <a class="tile" href="./farm.html"><div class="icon">🐮</div><div class="label">Farm</div></a>
+            <a class="tile" href="./invite/index.html"><div class="icon">🤝</div><div class="label">Mengundang</div></a>
+            <a class="tile" href="./withdraw.html"><div class="icon">💳</div><div class="label">Menarik</div></a>
+            <a class="tile" href="./holdings.html"><div class="icon">📦</div><div class="label">Ringkasan</div></a>
+            <a class="tile" href="./history.html"><div class="icon">🧾</div><div class="label">Riwayat</div></a>
+            <a class="tile" href="./settings.html"><div class="icon">⚙️</div><div class="label">Pengaturan</div></a>
+            <a class="tile" href="./profile.html"><div class="icon">👤</div><div class="label">Aku</div></a>
+          </div>
+        </section>
+        <section class="page">
+          <div class="icon-grid cols3">
+            <a class="tile" href="./news.html"><div class="icon">📰</div><div class="label">Berita</div></a>
+            <a class="tile" href="./contact.html"><div class="icon">📞</div><div class="label">Contact</div></a>
+            <a class="tile" href="./notifications.html"><div class="icon">🔔</div><div class="label">Notifikasi</div></a>
+          </div>
+        </section>
       </div>
     </section>
   </main>
+
   <nav class="tabbar">
     <a href="./dashboard.html" class="tab active">🏠<span>Home</span></a>
     <a href="./farm.html" class="tab">🐮<span>Farm</span></a>
@@ -37,24 +84,6 @@
     <a href="./profile.html" class="tab">👤<span>Aku</span></a>
   </nav>
 </div>
-<script type="module">
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { app } from "./shared/firebase.js";
-const auth = getAuth(app);
-onAuthStateChanged(auth, async (u)=>{
-  if(!u){ location.replace("./login.html"); return; }
-  // cek role admin untuk menampilkan tombol admin
-  const db = getFirestore(app);
-  try{
-    const snap = await getDoc(doc(db,"users", u.uid));
-    const role = snap.exists() ? (snap.data().role||"user") : "user";
-    if(role==="admin") document.getElementById("adminLink").style.display="inline-block";
-  }catch(e){ /* ignore */ }
-});
-document.getElementById("logoutBtn").addEventListener("click", async ()=>{
-  await signOut(auth);
-  location.replace("./login.html");
-});
-</script>
+
+<script type="module" src="./js/pages/dashboard.js"></script>
 </body></html>
