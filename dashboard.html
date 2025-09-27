@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="id"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Dashboard — Animals Cash</title>
+<title>Dashboard — PETERNAKAN HEWAN</title>
 <link rel="stylesheet" href="./css/styles.css"/>
 <link rel="stylesheet" href="./css/home.css"/>
 </head><body>
@@ -9,35 +9,30 @@
     <div class="brand">PETERNAKAN HEWAN</div>
     <div class="top-actions">
       <button id="btnNotif" class="icon-btn" aria-label="Notifikasi">🔔</button>
-      <select id="langPicker" class="select-compact"><option value="id">ID</option><option value="en">EN</option></select>
+      <select id="langPicker" class="select-compact">
+        <option value="id">ID</option><option value="en">EN</option>
+        <option value="ms">MS</option><option value="th">TH</option><option value="vi">VI</option>
+      </select>
+      <button id="themeBtn" class="icon-btn" aria-label="Tema">🌓</button>
       <a id="adminLink" class="btn" href="./admin/index.html" style="display:none">Admin</a>
       <button id="logoutBtn" class="btn red" type="button">Logout</button>
     </div>
   </header>
 
   <main class="content">
-    <!-- HERO / BANNER -->
+    <!-- HERO / BANNER SLIDER -->
     <section class="hero card" aria-label="Banner">
       <div class="slides" id="heroSlides">
         <div class="slide">
-          <div>
-            <h2>Bonus Referral Rp 5.000</h2>
-            <p>Undang temanmu, bonus otomatis masuk saldo.</p>
-          </div>
+          <div class="slide-copy"><h2>Bonus Referral Rp 5.000</h2><p>Undang temanmu, bonus otomatis masuk saldo.</p></div>
           <img src="img/buffalo.png" alt="Buffalo bonus" class="slide-img" />
         </div>
         <div class="slide">
-          <div>
-            <h2>Panen Harian</h2>
-            <p>Pendapatan masuk setiap hari sesuai siklus.</p>
-          </div>
+          <div class="slide-copy"><h2>Panen Harian</h2><p>Pendapatan masuk setiap hari sesuai siklus.</p></div>
           <img src="img/fish.png" alt="Fish bonus" class="slide-img" />
         </div>
         <div class="slide">
-          <div>
-            <h2>Keamanan Dana</h2>
-            <p>Verifikasi admin untuk setiap transaksi.</p>
-          </div>
+          <div class="slide-copy"><h2>Keamanan Dana</h2><p>Verifikasi admin untuk setiap transaksi.</p></div>
           <img src="img/cow.png" alt="Cow" class="slide-img" />
         </div>
       </div>
@@ -51,12 +46,12 @@
       <div class="stat"><div class="stat-label">Holding Aktif</div><div class="stat-value" id="sumHold">0</div></div>
     </section>
 
-    <!-- SWIPE GRID 3x4 -->
+    <!-- SWIPE GRID 3×4 (compact as per mockup) -->
     <section class="card">
       <div class="grid-head"><h3>Menu</h3><div class="grid-indicators" id="gridDots"></div></div>
       <div class="swipe-grid" id="menuGrid">
         <section class="page">
-          <div class="icon-grid cols3">
+          <div class="icon-grid cols3 compact">
             <a class="tile" href="./farm.html"><div class="icon">🐮</div><div class="label">Farm</div></a>
             <a class="tile" href="./invite/index.html"><div class="icon">🤝</div><div class="label">Mengundang</div></a>
             <a class="tile" href="./withdraw.html"><div class="icon">💳</div><div class="label">Menarik</div></a>
@@ -67,7 +62,7 @@
           </div>
         </section>
         <section class="page">
-          <div class="icon-grid cols3">
+          <div class="icon-grid cols3 compact">
             <a class="tile" href="./news.html"><div class="icon">📰</div><div class="label">Berita</div></a>
             <a class="tile" href="./contact.html"><div class="icon">📞</div><div class="label">Contact</div></a>
             <a class="tile" href="./notifications.html"><div class="icon">🔔</div><div class="label">Notifikasi</div></a>
@@ -84,6 +79,5 @@
     <a href="./profile.html" class="tab">👤<span>Aku</span></a>
   </nav>
 </div>
-
 <script type="module" src="./js/pages/dashboard.js"></script>
 </body></html>
