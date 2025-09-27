@@ -1,1 +1,40 @@
-
+:root{
+  --bg:#0e141b; --card:#121c28; --text:#e6eef7; --muted:#a6b4c5;
+  --brand:#5cc4ff; --accent:#27d6a5; --radius:18px; --wrap: 420px;
+}
+*{box-sizing:border-box} html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:500 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Arial}
+.app{max-width:var(--wrap);margin:0 auto;padding:14px 16px 88px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.brand{font-weight:800;letter-spacing:.5px;line-height:1.05}
+.actions{display:flex;gap:12px}
+.icon{background:#0f151e;border:none;border-radius:16px;padding:10px;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.icon img{width:22px;height:22px;display:block}
+.hero{background:linear-gradient(135deg,#64e4ff,#34c3a0);border-radius:24px;padding:18px 18px 22px;margin-bottom:12px;box-shadow:0 10px 26px rgba(0,0,0,.35)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+.stat{background:var(--card);border-radius:16px;padding:12px;text-align:left}
+.stat small{color:var(--muted)} .stat b{display:block;font-size:22px;margin-top:6px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{background:#0f151e;border-radius:18px;padding:14px 10px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.35);text-decoration:none;color:var(--text)}
+.tile img{width:72px;height:72px;display:block;margin:0 auto 8px}
+.tile span{font-weight:700}
+.tabbar{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:12px;background:rgba(10,14,20,.92);backdrop-filter:blur(10px);padding:10px 12px 16px}
+.tab{display:flex;flex-direction:column;align-items:center;gap:6px;background:#0f151e;padding:10px 16px;border-radius:14px}
+.tab img{width:20px;height:20px}
+/* Auth cards */
+.auth{max-width:var(--wrap);margin:0 auto;padding:16px}
+.card{background:var(--card);border-radius:20px;padding:18px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.field{display:grid;gap:6px;margin-bottom:12px}
+.input{width:100%;padding:12px;border-radius:12px;background:rgba(255,255,255,.06);border:none;color:var(--text)}
+.btn{background:linear-gradient(135deg,#64e4ff,#34c3a0);border:none;color:#062133;padding:12px 14px;border-radius:12px;font-weight:800;cursor:pointer}
+.row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.muted{color:var(--muted)}
+/* Dialogs */
+dialog{border:none;border-radius:16px;padding:16px 16px 12px;background:#132132;color:var(--text)}
+dialog::backdrop{background:rgba(0,0,0,.4)}
+dialog button{display:block;width:100%;margin-top:8px;background:#0f151e;color:var(--text);border:none;padding:12px;border-radius:12px}
+/* Spinner overlay */
+.overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5);z-index:60}
+.overlay.show{display:flex}
+.spinner{width:64px;height:64px;border-radius:50%;border:6px solid rgba(255,255,255,.2);border-top-color:#9fd4ff;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
