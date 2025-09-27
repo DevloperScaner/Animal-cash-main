@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="id"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Dashboard — PETERNAKAN HEWAN</title>
+<title data-i18n="title_dashboard">Dashboard — PETERNAKAN HEWAN</title>
 <link rel="stylesheet" href="./css/styles.css"/>
 <link rel="stylesheet" href="./css/home.css"/>
 </head><body>
 <div class="app">
   <header class="topbar">
-    <div class="brand">PETERNAKAN HEWAN</div>
+    <div class="brand" data-i18n="app_name">PETERNAKAN HEWAN</div>
     <div class="top-actions">
       <button id="btnNotif" class="icon-btn" aria-label="Notifikasi">🔔</button>
       <select id="langPicker" class="select-compact">
@@ -14,8 +14,8 @@
         <option value="ms">MS</option><option value="th">TH</option><option value="vi">VI</option>
       </select>
       <button id="themeBtn" class="icon-btn" aria-label="Tema">🌓</button>
-      <a id="adminLink" class="btn" href="./admin/index.html" style="display:none">Admin</a>
-      <button id="logoutBtn" class="btn red" type="button">Logout</button>
+      <a id="adminLink" class="btn" href="./admin/index.html" style="display:none" data-i18n="admin">Admin</a>
+      <button id="logoutBtn" class="btn red" type="button" data-i18n="logout">Logout</button>
     </div>
   </header>
 
@@ -24,15 +24,24 @@
     <section class="hero card" aria-label="Banner">
       <div class="slides" id="heroSlides">
         <div class="slide">
-          <div class="slide-copy"><h2>Bonus Referral Rp 5.000</h2><p>Undang temanmu, bonus otomatis masuk saldo.</p></div>
+          <div class="slide-copy">
+            <h2 data-i18n="hero_title_1">Bonus Referral Rp 5.000</h2>
+            <p data-i18n="hero_desc_1">Undang temanmu, bonus otomatis masuk saldo.</p>
+          </div>
           <img src="img/buffalo.png" alt="Buffalo bonus" class="slide-img" />
         </div>
         <div class="slide">
-          <div class="slide-copy"><h2>Panen Harian</h2><p>Pendapatan masuk setiap hari sesuai siklus.</p></div>
+          <div class="slide-copy">
+            <h2 data-i18n="hero_title_2">Panen Harian</h2>
+            <p data-i18n="hero_desc_2">Pendapatan masuk setiap hari sesuai siklus.</p>
+          </div>
           <img src="img/fish.png" alt="Fish bonus" class="slide-img" />
         </div>
         <div class="slide">
-          <div class="slide-copy"><h2>Keamanan Dana</h2><p>Verifikasi admin untuk setiap transaksi.</p></div>
+          <div class="slide-copy">
+            <h2 data-i18n="hero_title_3">Keamanan Dana</h2>
+            <p data-i18n="hero_desc_3">Verifikasi admin untuk setiap transaksi.</p>
+          </div>
           <img src="img/cow.png" alt="Cow" class="slide-img" />
         </div>
       </div>
@@ -41,31 +50,31 @@
 
     <!-- SUMMARY STRIP -->
     <section class="stats card">
-      <div class="stat"><div class="stat-label">Total Asset</div><div class="stat-value" id="sumAssets">Rp0</div></div>
-      <div class="stat"><div class="stat-label">Akun Kuantitatif</div><div class="stat-value" id="sumAcc">0</div></div>
-      <div class="stat"><div class="stat-label">Holding Aktif</div><div class="stat-value" id="sumHold">0</div></div>
+      <div class="stat"><div class="stat-label" data-i18n="total_assets">Total Asset</div><div class="stat-value" id="sumAssets">Rp0</div></div>
+      <div class="stat"><div class="stat-label" data-i18n="quant_acc">Akun Kuantitatif</div><div class="stat-value" id="sumAcc">0</div></div>
+      <div class="stat"><div class="stat-label" data-i18n="active_holding">Holding Aktif</div><div class="stat-value" id="sumHold">0</div></div>
     </section>
 
-    <!-- SWIPE GRID 3×4 (compact as per mockup) -->
+    <!-- SWIPE GRID 3×4 (compact) -->
     <section class="card">
-      <div class="grid-head"><h3>Menu</h3><div class="grid-indicators" id="gridDots"></div></div>
+      <div class="grid-head"><h3 data-i18n="menu">Menu</h3><div class="grid-indicators" id="gridDots"></div></div>
       <div class="swipe-grid" id="menuGrid">
         <section class="page">
           <div class="icon-grid cols3 compact">
-            <a class="tile" href="./farm.html"><div class="icon">🐮</div><div class="label">Farm</div></a>
-            <a class="tile" href="./invite/index.html"><div class="icon">🤝</div><div class="label">Mengundang</div></a>
-            <a class="tile" href="./withdraw.html"><div class="icon">💳</div><div class="label">Menarik</div></a>
-            <a class="tile" href="./holdings.html"><div class="icon">📦</div><div class="label">Ringkasan</div></a>
-            <a class="tile" href="./history.html"><div class="icon">🧾</div><div class="label">Riwayat</div></a>
-            <a class="tile" href="./settings.html"><div class="icon">⚙️</div><div class="label">Pengaturan</div></a>
-            <a class="tile" href="./profile.html"><div class="icon">👤</div><div class="label">Aku</div></a>
+            <a class="tile" href="./farm.html"><div class="icon">🐮</div><div class="label" data-i18n="farm">Farm</div></a>
+            <a class="tile" href="./invite/index.html"><div class="icon">🤝</div><div class="label" data-i18n="invite">Mengundang</div></a>
+            <a class="tile" href="./withdraw.html"><div class="icon">💳</div><div class="label" data-i18n="withdraw">Menarik</div></a>
+            <a class="tile" href="./holdings.html"><div class="icon">📦</div><div class="label" data-i18n="summary">Ringkasan</div></a>
+            <a class="tile" href="./history.html"><div class="icon">🧾</div><div class="label" data-i18n="history">Riwayat</div></a>
+            <a class="tile" href="./settings.html"><div class="icon">⚙️</div><div class="label" data-i18n="settings">Pengaturan</div></a>
+            <a class="tile" href="./profile.html"><div class="icon">👤</div><div class="label" data-i18n="me">Aku</div></a>
+            <a class="tile" href="./contact.html"><div class="icon">📞</div><div class="label" data-i18n="contact">Contact Support</div></a>
           </div>
         </section>
         <section class="page">
           <div class="icon-grid cols3 compact">
-            <a class="tile" href="./news.html"><div class="icon">📰</div><div class="label">Berita</div></a>
-            <a class="tile" href="./contact.html"><div class="icon">📞</div><div class="label">Contact</div></a>
-            <a class="tile" href="./notifications.html"><div class="icon">🔔</div><div class="label">Notifikasi</div></a>
+            <a class="tile" href="./notifications.html"><div class="icon">🔔</div><div class="label" data-i18n="notifications">Notifikasi</div></a>
+            <a class="tile" href="./news.html"><div class="icon">📰</div><div class="label" data-i18n="news">Berita</div></a>
           </div>
         </section>
       </div>
@@ -73,10 +82,10 @@
   </main>
 
   <nav class="tabbar">
-    <a href="./dashboard.html" class="tab active">🏠<span>Home</span></a>
-    <a href="./farm.html" class="tab">🐮<span>Farm</span></a>
-    <a href="./invite/index.html" class="tab">🤝<span>Invite</span></a>
-    <a href="./profile.html" class="tab">👤<span>Aku</span></a>
+    <a href="./dashboard.html" class="tab active">🏠<span data-i18n="home">Home</span></a>
+    <a href="./farm.html" class="tab">🐮<span data-i18n="farm">Farm</span></a>
+    <a href="./invite/index.html" class="tab">🤝<span data-i18n="invite">Invite</span></a>
+    <a href="./profile.html" class="tab">👤<span data-i18n="me">Aku</span></a>
   </nav>
 </div>
 <script type="module" src="./js/pages/dashboard.js"></script>
