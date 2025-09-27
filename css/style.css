@@ -70,7 +70,21 @@ h1,h2,h3{margin:0}
   :root{ --scale: .82; }
   .tab{min-width:140px}
 }
+.tile {
+  color: var(--text);         /* pakai warna teks default */
+  text-decoration: none;      /* hilangkan underline */
+}
 
+.tile .ttl {
+  margin-top: 10px;
+  font-weight: 800;
+  color: var(--text);         /* biar nggak warisan warna link */
+}
+
+.tile:hover, .tile:active {
+  background: #1a2533;        /* efek hover sedikit lebih terang */
+  transform: scale(0.97);
+}
 /* Simple back button for inner pages */
 .backbar{display:flex; align-items:center; gap:12px; padding:14px 0}
 .backbar a{color:#8ec5ff; text-decoration:none; font-weight:800}
