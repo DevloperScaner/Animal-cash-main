@@ -6,36 +6,48 @@ import { getLang, setLang, apply } from "../i18n.js";
 boot();
 await requireLogin();
 
-// init language picker
+// Language picker
 const lp = document.getElementById("langPicker");
 if (lp){ lp.value = getLang(); lp.addEventListener("change", ()=>{ setLang(lp.value); apply(); }); }
 apply();
 
-// logout
+// Instant Theme toggle using CSS variables
+function applyTheme(theme){
+  const r = document.documentElement;
+  if (theme === "light") {
+    r.style.setProperty("--bg","#f7fafc");
+    r.style.setProperty("--fg","#0b1520");
+    r.style.setProperty("--muted","#455a70");
+    r.style.setProperty("--panel","#ffffff");
+    r.style.setProperty("--panel2","#ffffff");
+    r.style.setProperty("--border","rgba(0,0,0,.08)");
+  } else {
+    r.style.setProperty("--bg","#0b1520");
+    r.style.setProperty("--fg","#e6f0ff");
+    r.style.setProperty("--muted","#9fb3c8");
+    r.style.setProperty("--panel","#0f1a2a");
+    r.style.setProperty("--panel2","#0f1a2a");
+    r.style.setProperty("--border","rgba(255,255,255,.06)");
+  }
+  localStorage.setItem("theme", theme);
+}
+applyTheme(localStorage.getItem("theme") || "dark");
+document.getElementById("themeBtn")?.addEventListener("click", ()=>{
+  const next = (localStorage.getItem("theme")==="light") ? "dark" : "light";
+  applyTheme(next);
+});
+
+// Logout
 document.getElementById("logoutBtn")?.addEventListener("click", async ()=>{
-  try { await (await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js')).signOut(auth); }
-  catch(e){ /* ignore */ }
+  try {
+    const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js');
+    await signOut(auth);
+  } catch(e){ /* ignore */ }
   location.replace("./login.html");
 });
 
-// notif button
-document.getElementById("btnNotif")?.addEventListener("click", ()=>{
-  location.href = "./notifications.html";
-});
-
-// theme toggle (persist)
-const btnTheme = document.getElementById("themeBtn");
-if (btnTheme) {
-  const applyTheme = () => {
-    const theme = localStorage.getItem("theme") || "dark";
-    document.documentElement.dataset.theme = theme;
-  };
-  applyTheme();
-  btnTheme.addEventListener("click", () => {
-    const next = (localStorage.getItem("theme") === "light") ? "dark" : "light";
-    localStorage.setItem("theme", next); applyTheme();
-  });
-}
+// Notif button
+document.getElementById("btnNotif")?.addEventListener("click", ()=> location.href = "./notifications.html");
 
 // Summary realtime
 const elAssets = document.getElementById("sumAssets");
@@ -71,7 +83,7 @@ let timer = setInterval(()=>go(idx+1), 3000);
 hero?.addEventListener("mouseenter", ()=> clearInterval(timer));
 hero?.addEventListener("mouseleave", ()=> timer = setInterval(()=>go(idx+1), 3000));
 
-// Swipe grid paging (smooth + robust)
+// Swipe grid paging (smooth & robust)
 const grid = document.getElementById("menuGrid");
 const gridDots = document.getElementById("gridDots");
 if (grid) {
@@ -82,12 +94,11 @@ if (grid) {
     dot.addEventListener("click", ()=> { gi=i; grid.style.transform = `translateX(-${gi*100}%)`; syncDots(); });
   });
   function syncDots(){ [...gridDots.children].forEach((d,k)=> d.classList.toggle("active", k===gi)); }
-  const threshold = 50;
+  const threshold = 48;
   grid.addEventListener("touchstart", e=> { startX=e.touches[0].clientX; dragging=true; }, {passive:true});
-  grid.addEventListener("touchmove",  e=> { if(!dragging) return; }, {passive:true});
+  grid.addEventListener("touchmove",  e=> { if(!dragging) return; /* momentum optional */ }, {passive:true});
   grid.addEventListener("touchend",   e=> {
-    if(!dragging) return;
-    dragging=false;
+    if(!dragging) return; dragging=false;
     const dx=(e.changedTouches[0].clientX-startX);
     if (Math.abs(dx) > threshold) gi = Math.max(0, Math.min(pages.length-1, gi + (dx<0?1:-1)));
     grid.style.transform = `translateX(-${gi*100}%)`; syncDots();
