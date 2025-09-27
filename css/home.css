@@ -1,4 +1,12 @@
-/* Home / Dashboard — compact, responsive, smooth swipe */
+/* Home / Dashboard — theme vars + compact + smooth */
+:root {
+  --bg:#0b1520; --fg:#e6f0ff; --muted:#9fb3c8;
+  --panel:#0f1a2a; --panel2:#0f1a2a; --border:rgba(255,255,255,.06);
+}
+/* light theme vars will be injected by JS via inline CSS variables */
+
+body { background:var(--bg); color:var(--fg); }
+
 .hero { position:relative; overflow:hidden; border-radius:16px; background:linear-gradient(180deg,#0f2238,#0b1727); }
 .hero .slides { display:flex; transition:transform .5s ease; will-change: transform; }
 .hero .slide { flex:0 0 100%; display:flex; gap:12px; align-items:center; justify-content:space-between; padding:16px; min-height:120px; }
@@ -10,13 +18,13 @@
 .dots .dot.active { background:#fff; }
 
 .stats { display:grid; grid-template-columns: repeat(3,1fr); gap:8px; margin:10px 0; }
-.stat { background:var(--panel2,#0f1a2a); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px; }
+.stat { background:var(--panel2); border:1px solid var(--border); border-radius:12px; padding:10px; }
 .stat-label { font-size:11px; opacity:.8 }
 .stat-value { font-size:16px; font-weight:700; margin-top:2px; }
 
 .top-actions { display:flex; gap:8px; align-items:center; }
-.icon-btn { background:#0d1629; border:1px solid #1c2a43; color:#e5e7eb; border-radius:10px; padding:6px 8px; cursor:pointer }
-.select-compact { background:#0d1629; border:1px solid #1c2a43; color:#e5e7eb; border-radius:10px; padding:6px 8px; }
+.icon-btn { background:#0d1629; border:1px solid #1c2a43; color:var(--fg); border-radius:10px; padding:6px 8px; cursor:pointer }
+.select-compact { background:#0d1629; border:1px solid #1c2a43; color:var(--fg); border-radius:10px; padding:6px 8px; }
 
 .grid-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
 .grid-indicators { display:flex; gap:6px; }
@@ -28,7 +36,7 @@
 .icon-grid { display:grid; gap:8px; }
 .icon-grid.compact .tile { min-height:78px; padding:12px 8px; }
 .icon-grid.cols3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
-.tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; background:#0d1629; border:1px solid #1f2a44; text-decoration:none }
+.tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; background:var(--panel); border:1px solid var(--border); text-decoration:none; color:var(--fg) }
 .tile .icon { font-size:20px }
 .tile .label { font-size:12px; opacity:.95 }
 
