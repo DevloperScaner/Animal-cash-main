@@ -3,8 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Dashboard — Mockup v0.1</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="css/ui.css">
+  <!-- Firebase CDN -->
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/ui.js"></script>
+  <script defer src="js/home.js"></script>
 </head>
 <body>
   <div class="app">
@@ -18,9 +25,27 @@
     </header>
 
     <section class="hero">
-      <small style="display:inline-block;background:rgba(255,255,255,.2);padding:8px 12px;border-radius:16px">Chicken</small>
-      <h2 style="margin:10px 0 6px">Cashback 5%</h2>
-      <p style="opacity:.9;color:#eaf7ff">Promo ayam khusus minggu ini.</p>
+      <div class="hero-track" id="heroTrack">
+        <article class="hero-card" style="background:linear-gradient(135deg,#64e4ff,#34c3a0)">
+          <small class="tag">Chicken</small>
+          <h2>Cashback 5%</h2>
+          <p>Promo ayam khusus minggu ini.</p>
+          <img class="hero-img" src="img/cow.svg" alt="chicken">
+        </article>
+        <article class="hero-card" style="background:linear-gradient(135deg,#74b6ff,#9a6bff)">
+          <small class="tag">Sheep</small>
+          <h2>Bonus 15%</h2>
+          <p>Paket domba dapat bonus.</p>
+          <img class="hero-img" src="img/cow.svg" alt="sheep">
+        </article>
+        <article class="hero-card" style="background:linear-gradient(135deg,#69f,#3ad)">
+          <small class="tag">Cow</small>
+          <h2>Potongan 10%</h2>
+          <p>Diskon spesial paket sapi.</p>
+          <img class="hero-img" src="img/cow.svg" alt="cow">
+        </article>
+      </div>
+      <div class="dots" id="heroDots"></div>
     </section>
 
     <section class="stats">
@@ -29,17 +54,33 @@
       <div class="stat"><small>Holding Aktif</small><b>0</b></div>
     </section>
 
-    <section>
-      <div class="grid">
-        <a class="tile" href="#"><img src="img/card.svg"><span>Menarik</span></a>
-        <a class="tile" href="#"><img src="img/card.svg"><span>Kontak</span></a>
-        <a class="tile" href="#"><img src="img/card.svg"><span>Tim</span></a>
-        <a class="tile" href="#"><img src="img/card.svg"><span>Mengundang</span></a>
-        <a class="tile" href="#"><img src="img/card.svg"><span>Berita</span></a>
-        <a class="tile" href="#"><img src="img/card.svg"><span>Ringkasan</span></a>
-        <a class="tile" href="#"><img src="img/card.svg"><span>Pusat Tugas</span></a>
-        <a class="tile" href="#"><img src="img/cow.svg"><span>Farm</span></a>
-        <a class="tile" href="#"><img src="img/user.svg"><span>Aku</span></a>
+    <section class="menu">
+      <div class="head">
+        <h3>Menu</h3>
+        <div class="dots" id="gridDots"></div>
+      </div>
+      <div class="viewport">
+        <div class="track">
+          <div class="page">
+            <a class="tile" href="pages/withdraw.html"><img src="img/card.svg"><span>Menarik</span></a>
+            <a class="tile" href="pages/contact.html"><img src="img/card.svg"><span>Kontak</span></a>
+            <a class="tile" href="pages/team.html"><img src="img/card.svg"><span>Tim</span></a>
+            <a class="tile" href="pages/invite.html"><img src="img/card.svg"><span>Mengundang</span></a>
+            <a class="tile" href="pages/news.html"><img src="img/card.svg"><span>Berita</span></a>
+            <a class="tile" href="pages/summary.html"><img src="img/card.svg"><span>Ringkasan</span></a>
+            <a class="tile" href="pages/tasks.html"><img src="img/card.svg"><span>Pusat Tugas</span></a>
+            <a class="tile" href="pages/farm.html"><img src="img/cow.svg"><span>Farm</span></a>
+            <a class="tile" href="pages/profile.html"><img src="img/user.svg"><span>Aku</span></a>
+          </div>
+          <div class="page">
+            <a class="tile" href="pages/wallet.html"><img src="img/card.svg"><span>Dompet</span></a>
+            <a class="tile" href="pages/admin.html"><img src="img/card.svg"><span>Admin</span></a>
+            <a class="tile" href="pages/help.html"><img src="img/card.svg"><span>Help</span></a>
+            <a class="tile" href="pages/about.html"><img src="img/card.svg"><span>Tentang</span></a>
+            <a class="tile" href="pages/rate.html"><img src="img/card.svg"><span>Rate</span></a>
+            <a class="tile" href="pages/more.html"><img src="img/card.svg"><span>Lainnya</span></a>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -51,15 +92,13 @@
     <a class="tab"><img src="img/user.svg"><span>Aku</span></a>
   </nav>
 
+  <!-- dialogs -->
   <dialog id="langDialog"><h3>Pilih bahasa</h3>
     <button data-lang="id">Indonesia</button>
     <button data-lang="en">English</button>
     <button onclick="this.closest('dialog').close()">Tutup</button>
   </dialog>
   <dialog id="notifDialog"><h3>Notifikasi</h3><p>Tidak ada pesan.</p><button onclick="this.closest('dialog').close()">Tutup</button></dialog>
-
   <div class="overlay" id="loading"><div class="spinner"></div></div>
-
-  <script src="js/ui.js"></script>
 </body>
 </html>
