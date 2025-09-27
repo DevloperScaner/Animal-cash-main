@@ -1,107 +1,52 @@
-<!doctype html>
-<html lang="id" data-theme="dark">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>PETERNAKAN HEWAN — Dashboard</title>
-  <link rel="stylesheet" href="css/styles.css" />
-</head>
+
+<!doctype html><html lang="id" data-theme="dark"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Peternakan Hewan — Home</title><link rel="stylesheet" href="css/styles.css"/></head>
 <body>
-<header class="topbar container">
-  <div class="brand">PETERNAKAN<br/>HEWAN</div>
-  <div class="top-actions">
-    <button id="btnNotif" class="icon-btn" aria-label="Notifikasi">🔔<span class="badge" id="notifCount">0</span></button>
-    <div class="select-wrap">
-      <select id="langSelect" aria-label="Bahasa">
-        <option value="id">ID</option>
-        <option value="en">EN</option>
-      </select>
+<main class="container" id="main">
+  <section class="card hero" id="hero">
+    <div class="hero-track">
+      <div class="hero-slide"><div><h2 data-i18n="promo1Title">Diskon Biaya Tarik</h2><p data-i18n="promo1Body">Biaya penarikan turun jadi 2% khusus minggu ini.</p></div><img src="img/hero.svg" width="120"/></div>
+      <div class="hero-slide alt"><div><h2 data-i18n="promo2Title">Bonus Referral</h2><p data-i18n="promo2Body">Undang temanmu, bonus otomatis masuk saldo.</p></div><img src="img/hero.svg" width="120"/></div>
     </div>
-    <button id="themeToggle" class="icon-btn" aria-label="Tema">🌗</button>
-    <button id="logoutBtn" class="logout-btn" data-i18n="logout">Logout</button>
-  </div>
-</header>
-
-<main class="container stack-24">
-  <!-- HERO / PROMO SLIDER -->
-  <section class="card p-20">
-    <div class="slider" id="heroSlider" aria-roledescription="carousel">
-      <div class="slides">
-        <article class="slide hero hero-1">
-          <div class="hero-text">
-            <h2 data-i18n="promo_1_t">Diskon Biaya Tarik</h2>
-            <p data-i18n="promo_1_d">Biaya penarikan turun jadi 2% khusus minggu ini.</p>
-          </div>
-        </article>
-        <article class="slide hero hero-2">
-          <div class="hero-text">
-            <h2 data-i18n="promo_2_t">Bonus Undang Teman</h2>
-            <p data-i18n="promo_2_d">Undang temanmu, bonus otomatis masuk saldo.</p>
-          </div>
-        </article>
-        <article class="slide hero hero-3">
-          <div class="hero-text">
-            <h2 data-i18n="promo_3_t">Event Musim Panen</h2>
-            <p data-i18n="promo_3_d">Dapatkan hadiah acak setiap pembelian hewan.</p>
-          </div>
-        </article>
-      </div>
-      <div class="dots" id="sliderDots" role="tablist" aria-label="Slider Dots"></div>
-    </div>
+    <div class="hero-dots"><div class="dot"></div><div class="dot"></div></div>
   </section>
-
-  <!-- KPI -->
-  <section class="kpi grid-3">
-    <div class="card center">
-      <div class="kpi-title" data-i18n="total_asset">Total Asset</div>
-      <div class="kpi-value" id="kpiTotal">Rp 0</div>
-    </div>
-    <div class="card center">
-      <div class="kpi-title" data-i18n="quant_account">Akun Kuantitatif</div>
-      <div class="kpi-value" id="kpiQuant">Rp 0</div>
-    </div>
-    <div class="card center">
-      <div class="kpi-title" data-i18n="holding_active">Holding Aktif</div>
-      <div class="kpi-value" id="kpiHold">0</div>
-    </div>
+  <section class="metric" style="margin-top:14px">
+    <div class="box"><div class="title" data-i18n="totalAsset">Total Asset</div><div class="value">Rp 0</div></div>
+    <div class="box"><div class="title" data-i18n="quant">Akun Kuantitatif</div><div class="value">Rp 0</div></div>
+    <div class="box"><div class="title" data-i18n="activeHold">Holding Aktif</div><div class="value">0</div></div>
   </section>
-
-  <!-- MENU GRID 3x3 with swipe -->
-  <section class="card p-12">
-    <div class="section-head">
-      <h3 data-i18n="menu">Menu</h3>
-      <div class="dots small" id="menuDots"></div>
+  <section class="card" style="margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 data-i18n="menu">Menu</h3><div class="grid-dots"><span class="dot grid-dot"></span><span class="dot grid-dot"></span></div>
     </div>
-    <div class="grid-swiper" id="menuSwiper">
-      <div class="grid-pages" id="menuPages">
-        <!-- pages injected by JS -->
+    <div class="grid-wrapper" id="gridWrap">
+      <div class="grid-track">
+        <div class="grid-page">
+          <a class="tile" href="pages/withdraw.html"><span class="ico">💳</span><span class="label">Menarik</span></a>
+          <a class="tile" href="pages/contact.html"><span class="ico">💬</span><span class="label">Contact</span></a>
+          <a class="tile" href="pages/team.html"><span class="ico">👥</span><span class="label">Tim</span></a>
+          <a class="tile" href="pages/invite.html"><span class="ico">✉️</span><span class="label">Mengundang</span></a>
+          <a class="tile" href="pages/news.html"><span class="ico">📰</span><span class="label">Berita</span></a>
+          <a class="tile" href="pages/summary.html"><span class="ico">📈</span><span class="label">Ringkasan</span></a>
+          <a class="tile" href="pages/tasks.html"><span class="ico">🗂️</span><span class="label">Pusat Tugas</span></a>
+          <a class="tile hide" id="adminTile" href="pages/admin.html"><span class="ico">🛠️</span><span class="label">Admin</span></a>
+          <a class="tile" href="pages/profile.html"><span class="ico">👤</span><span class="label">Profil</span></a>
+        </div>
+        <div class="grid-page">
+          <a class="tile" href="pages/support.html"><span class="ico">🛟</span><span class="label">Support</span></a>
+          <a class="tile" href="pages/settings.html"><span class="ico">⚙️</span><span class="label">Pengaturan</span></a>
+          <a class="tile" href="pages/banners.html"><span class="ico">🖼️</span><span class="label">Banner</span></a>
+        </div>
       </div>
     </div>
   </section>
 </main>
-
-<!-- bottom nav -->
-<nav class="bottom-nav">
-  <a class="nav-item active" href="#" data-i18n="home">Home</a>
-  <a class="nav-item" href="#" data-i18n="farm">Farm</a>
-  <a class="nav-item" href="#" data-i18n="invite">Mengundang</a>
-  <a class="nav-item" href="login.html" data-i18n="me">Aku</a>
-</nav>
-
-<!-- Notifications modal -->
-<div class="modal" id="notifModal" aria-hidden="true" role="dialog" aria-label="Notifications">
-  <div class="modal-backdrop" data-close></div>
-  <div class="modal-card">
-    <div class="modal-head">
-      <h3 data-i18n="notifications">Notifikasi</h3>
-      <button class="icon-btn" data-close aria-label="Tutup">✖</button>
-    </div>
-    <div class="modal-body" id="notifList"></div>
-  </div>
-</div>
-
-<script src="js/i18n.js"></script>
-<script src="js/slider.js"></script>
-<script src="js/app.js"></script>
-</body>
-</html>
+<script src="js/i18n.js"></script><script src="js/shell.js"></script><script src="js/slider.js"></script>
+<script>
+  renderShell('home'); makeHeroSlider(document.getElementById('hero')); makeGridSwiper(document.getElementById('gridWrap'));
+  if(!localStorage.getItem('authed')) localStorage.setItem('authed','1');
+  const isAdmin = localStorage.getItem('role')==='admin';
+  if(isAdmin) document.getElementById('adminTile').classList.remove('hide');
+</script>
+</body></html>
