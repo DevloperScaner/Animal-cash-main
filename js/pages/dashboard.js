@@ -1,6 +1,6 @@
 import { boot } from "../app.js";
 import { requireLogin } from "../../shared/auth.js";
-import { auth, db, collection, query, where, onSnapshot } from "../../shared/firebase.js";
+import { auth, db, collection, query, where, onSnapshot, doc, getDoc } from "../../shared/firebase.js";
 import { getLang, setLang, apply } from "../i18n.js";
 
 boot();
@@ -11,7 +11,7 @@ const lp = document.getElementById("langPicker");
 if (lp){ lp.value = getLang(); lp.addEventListener("change", ()=>{ setLang(lp.value); apply(); }); }
 apply();
 
-// Instant Theme toggle using CSS variables
+// Instant Theme toggle
 function applyTheme(theme){
   const r = document.documentElement;
   if (theme === "light") {
@@ -49,6 +49,14 @@ document.getElementById("logoutBtn")?.addEventListener("click", async ()=>{
 // Notif button
 document.getElementById("btnNotif")?.addEventListener("click", ()=> location.href = "./notifications.html");
 
+// Admin visibility based on role
+try {
+  const s = await getDoc(doc(db,"users", auth.currentUser.uid));
+  const role = s.exists() ? (s.data().role || "user") : "user";
+  const adminTile = document.getElementById("adminTile");
+  if (adminTile) adminTile.style.display = (role === "admin") ? "flex" : "none";
+} catch(e){ /* ignore */ }
+
 // Summary realtime
 const elAssets = document.getElementById("sumAssets");
 const elHold = document.getElementById("sumHold");
@@ -83,7 +91,7 @@ let timer = setInterval(()=>go(idx+1), 3000);
 hero?.addEventListener("mouseenter", ()=> clearInterval(timer));
 hero?.addEventListener("mouseleave", ()=> timer = setInterval(()=>go(idx+1), 3000));
 
-// Swipe grid paging (smooth & robust)
+// Swipe grid paging (3x3 per page, smooth)
 const grid = document.getElementById("menuGrid");
 const gridDots = document.getElementById("gridDots");
 if (grid) {
@@ -96,7 +104,7 @@ if (grid) {
   function syncDots(){ [...gridDots.children].forEach((d,k)=> d.classList.toggle("active", k===gi)); }
   const threshold = 48;
   grid.addEventListener("touchstart", e=> { startX=e.touches[0].clientX; dragging=true; }, {passive:true});
-  grid.addEventListener("touchmove",  e=> { if(!dragging) return; /* momentum optional */ }, {passive:true});
+  grid.addEventListener("touchmove",  e=> { if(!dragging) return; }, {passive:true});
   grid.addEventListener("touchend",   e=> {
     if(!dragging) return; dragging=false;
     const dx=(e.changedTouches[0].clientX-startX);
@@ -104,3 +112,11 @@ if (grid) {
     grid.style.transform = `translateX(-${gi*100}%)`; syncDots();
   }, {passive:true});
 }
+
+// Click glow on tiles
+document.querySelectorAll(".tile").forEach(t=>{
+  t.addEventListener("click", ()=>{
+    t.classList.add("glow");
+    setTimeout(()=> t.classList.remove("glow"), 400);
+  });
+});
