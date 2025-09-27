@@ -1,9 +1,10 @@
-// js/config.js — gunakan config dari user
+
+// Paste your Firebase config below if needed later; kept separate
 window.firebaseConfig = {
-  apiKey: "AIzaSyB7Xlu02Winh4wp2XDzw5592yE9_J-qiuM",
-  authDomain: "investasi-hewan.firebaseapp.com",
-  projectId: "investasi-hewan",
-  storageBucket: "investasi-hewan.firebasestorage.app",
-  messagingSenderId: "180728484800",
-  appId: "1:180728484800:web:f2fcd8e390b636dfb6ee25"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_BUCKET",
+  messagingSenderId: "YOUR_SENDER",
+  appId: "YOUR_APP_ID"
 };
