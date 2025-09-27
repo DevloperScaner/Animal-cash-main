@@ -10,7 +10,7 @@
   --chip:#1b2836;
   --radius:22px;
   --container: 920px;
-  --scale: .88; /* locked size scale */
+  --scale: .81; /* locked size scale */
 }
 
 *{box-sizing:border-box}
