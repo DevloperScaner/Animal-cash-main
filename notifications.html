@@ -1,28 +1,11 @@
 <!DOCTYPE html><html lang="id"><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Notifikasi</title>
-<link rel="stylesheet" href="./css/styles.css"/>
-</head><body>
-<div class="app">
-  <header class="topbar"><a class="btn" href="./dashboard.html">⬅ Kembali</a><div class="brand">Notifikasi</div></header>
-  <main class="content">
-    <section class="card"><h3>Daftar Notifikasi</h3><div id="list"></div></section>
-  </main>
-  <nav class="tabbar"><a class="tab" href="./dashboard.html">🏠<span>Home</span></a><a class="tab" href="./profile.html">👤<span>Aku</span></a></nav>
-</div>
+<title>Notifikasi</title><link rel="stylesheet" href="./css/styles.css"/></head><body>
+<div class="app"><header class="topbar"><a class="btn" href="./dashboard.html">⬅ Kembali</a><div class="brand">Notifikasi</div></header>
+<main class="content"><section class="card"><h3>Daftar Notifikasi</h3><div id="list"></div></section></main>
+<nav class="tabbar"><a class="tab" href="./dashboard.html">🏠<span>Home</span></a></nav></div>
 <script type="module">
-import { db, collection, query, orderBy, onSnapshot } from "./shared/firebase.js";
-const list = document.getElementById("list");
-onSnapshot(query(collection(db,"notifications"), orderBy("createdAt","desc")), snap => {
-  list.innerHTML = "";
-  snap.forEach(doc=>{
-    const d = doc.data();
-    const item = document.createElement("div");
-    item.className = "card";
-    item.style.marginTop = "8px";
-    item.innerHTML = `<div style="font-weight:700">${d.title||"Pemberitahuan"}</div><div class="muted">${(d.body||"")}</div>`;
-    list.appendChild(item);
-  });
-});
-</script>
-</body></html>
+  import {{ db, collection, query, orderBy, onSnapshot }} from "./shared/firebase.js";
+  const list = document.getElementById("list");
+  onSnapshot(query(collection(db,"notifications"), orderBy("createdAt","desc")), snap => { list.innerHTML = ""; snap.forEach(doc=>{{ const d=doc.data(); const item=document.createElement("div"); item.className="card"; item.style.marginTop="8px"; item.innerHTML = `<div style='font-weight:700'>${{d.title||"Pemberitahuan"}}</div><div class='muted'>${{d.body||""}}</div>`; list.appendChild(item); }}); });
+</script></body></html>
