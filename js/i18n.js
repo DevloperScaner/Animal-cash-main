@@ -7,6 +7,7 @@ export const LANGS = {
         menu:"Menu", farm:"Farm", invite:"Mengundang", withdraw:"Menarik", summary:"Ringkasan",
         history:"Riwayat", settings:"Pengaturan", me:"Aku", home:"Home",
         contact:"Contact Support", notifications:"Notifikasi", news:"Berita",
+        tasks:"Pusat Tugas", faq:"FAQ", promo:"Promo", leaderboard:"Leaderboard",
         admin:"Admin", logout:"Logout"
       },
   en: { app_name: "LIVESTOCK FARM", title_dashboard:"Dashboard — LIVESTOCK FARM",
@@ -17,6 +18,7 @@ export const LANGS = {
         menu:"Menu", farm:"Farm", invite:"Invite", withdraw:"Withdraw", summary:"Summary",
         history:"History", settings:"Settings", me:"Me", home:"Home",
         contact:"Contact Support", notifications:"Notifications", news:"News",
+        tasks:"Task Center", faq:"FAQ", promo:"Promo", leaderboard:"Leaderboard",
         admin:"Admin", logout:"Logout"
       },
   ms: { app_name:"TENAK HAIWAN", title_dashboard:"Papan Pemuka — TENAK HAIWAN",
@@ -27,6 +29,7 @@ export const LANGS = {
         menu:"Menu", farm:"Farm", invite:"Jemput", withdraw:"Tarik", summary:"Ringkasan",
         history:"Sejarah", settings:"Tetapan", me:"Saya", home:"Laman Utama",
         contact:"Sokongan", notifications:"Notifikasi", news:"Berita",
+        tasks:"Pusat Tugasan", faq:"Soalan Lazim", promo:"Promosi", leaderboard:"Papan Kedudukan",
         admin:"Admin", logout:"Log Keluar"
       }
 };
