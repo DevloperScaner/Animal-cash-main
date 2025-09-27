@@ -14,7 +14,6 @@
         <option value="ms">MS</option><option value="th">TH</option><option value="vi">VI</option>
       </select>
       <button id="themeBtn" class="icon-btn" aria-label="Tema">🌓</button>
-      <a id="adminLink" class="btn" href="./admin/index.html" style="display:none" data-i18n="admin">Admin</a>
       <button id="logoutBtn" class="btn red" type="button" data-i18n="logout">Logout</button>
     </div>
   </header>
@@ -55,29 +54,36 @@
       <div class="stat"><div class="stat-label" data-i18n="active_holding">Holding Aktif</div><div class="stat-value" id="sumHold">0</div></div>
     </section>
 
-    <!-- SWIPE GRID 3×4 (compact) -->
+    <!-- SWIPE GRID 3×3 -->
     <section class="card">
       <div class="grid-head"><h3 data-i18n="menu">Menu</h3><div class="grid-indicators" id="gridDots"></div></div>
       <div class="swipe-grid" id="menuGrid">
+        <!-- Page 1 -->
         <section class="page">
           <div class="icon-grid cols3 compact">
             <a class="tile" href="./farm.html"><div class="icon">🐮</div><div class="label" data-i18n="farm">Farm</div></a>
             <a class="tile" href="./invite/index.html"><div class="icon">🤝</div><div class="label" data-i18n="invite">Mengundang</div></a>
             <a class="tile" href="./withdraw.html"><div class="icon">💳</div><div class="label" data-i18n="withdraw">Menarik</div></a>
+
             <a class="tile" href="./holdings.html"><div class="icon">📦</div><div class="label" data-i18n="summary">Ringkasan</div></a>
             <a class="tile" href="./history.html"><div class="icon">🧾</div><div class="label" data-i18n="history">Riwayat</div></a>
-            <a class="tile" href="./settings.html"><div class="icon">⚙️</div><div class="label" data-i18n="settings">Pengaturan</div></a>
             <a class="tile" href="./profile.html"><div class="icon">👤</div><div class="label" data-i18n="me">Aku</div></a>
-            <a class="tile" href="./contact.html"><div class="icon">📞</div><div class="label" data-i18n="contact">Contact Support</div></a>
+
             <a class="tile" href="./notifications.html"><div class="icon">🔔</div><div class="label" data-i18n="notifications">Notifikasi</div></a>
+            <a class="tile" href="./contact.html"><div class="icon">📞</div><div class="label" data-i18n="contact">Contact</div></a>
+            <a class="tile" href="./settings.html"><div class="icon">⚙️</div><div class="label" data-i18n="settings">Pengaturan</div></a>
+          </div>
+        </section>
+
+        <!-- Page 2 -->
+        <section class="page">
+          <div class="icon-grid cols3 compact">
             <a class="tile" href="./tasks.html"><div class="icon">🗂️</div><div class="label" data-i18n="tasks">Pusat Tugas</div></a>
             <a class="tile" href="./faq.html"><div class="icon">❓</div><div class="label" data-i18n="faq">FAQ</div></a>
             <a class="tile" href="./promo.html"><div class="icon">🎉</div><div class="label" data-i18n="promo">Promo</div></a>
-          </div>
-        </section>
-        <section class="page">
-          <div class="icon-grid cols3 compact">
+
             <a class="tile" href="./leaderboard.html"><div class="icon">🏆</div><div class="label" data-i18n="leaderboard">Leaderboard</div></a>
+            <a class="tile admin-only" id="adminTile" href="./admin/index.html" style="display:none"><div class="icon">🛠️</div><div class="label" data-i18n="admin">Admin</div></a>
           </div>
         </section>
       </div>
