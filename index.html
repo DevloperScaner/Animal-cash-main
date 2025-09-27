@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Dashboard — Mockup v0.1</title>
+  <link rel="stylesheet" href="css/ui.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1 class="brand">PETERNAKAN<br>HEWAN</h1>
+      <div class="actions">
+        <button class="icon" data-open="notif"><img src="img/bell.svg" alt="Notif"></button>
+        <button class="icon" data-open="lang"><img src="img/globe.svg" alt="Lang"></button>
+        <button class="icon" data-toggle="theme"><img src="img/moon.svg" alt="Tema"></button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <small style="display:inline-block;background:rgba(255,255,255,.2);padding:8px 12px;border-radius:16px">Chicken</small>
+      <h2 style="margin:10px 0 6px">Cashback 5%</h2>
+      <p style="opacity:.9;color:#eaf7ff">Promo ayam khusus minggu ini.</p>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><small>Total Aset</small><b>Rp 0</b></div>
+      <div class="stat"><small>Akun Kuantitatif</small><b>Rp 0</b></div>
+      <div class="stat"><small>Holding Aktif</small><b>0</b></div>
+    </section>
+
+    <section>
+      <div class="grid">
+        <a class="tile" href="#"><img src="img/card.svg"><span>Menarik</span></a>
+        <a class="tile" href="#"><img src="img/card.svg"><span>Kontak</span></a>
+        <a class="tile" href="#"><img src="img/card.svg"><span>Tim</span></a>
+        <a class="tile" href="#"><img src="img/card.svg"><span>Mengundang</span></a>
+        <a class="tile" href="#"><img src="img/card.svg"><span>Berita</span></a>
+        <a class="tile" href="#"><img src="img/card.svg"><span>Ringkasan</span></a>
+        <a class="tile" href="#"><img src="img/card.svg"><span>Pusat Tugas</span></a>
+        <a class="tile" href="#"><img src="img/cow.svg"><span>Farm</span></a>
+        <a class="tile" href="#"><img src="img/user.svg"><span>Aku</span></a>
+      </div>
+    </section>
+  </div>
+
+  <nav class="tabbar">
+    <a class="tab"><img src="img/home.svg"><span>Rumah</span></a>
+    <a class="tab"><img src="img/cow.svg"><span>Farm</span></a>
+    <a class="tab"><img src="img/hand.svg"><span>Mengundang</span></a>
+    <a class="tab"><img src="img/user.svg"><span>Aku</span></a>
+  </nav>
+
+  <dialog id="langDialog"><h3>Pilih bahasa</h3>
+    <button data-lang="id">Indonesia</button>
+    <button data-lang="en">English</button>
+    <button onclick="this.closest('dialog').close()">Tutup</button>
+  </dialog>
+  <dialog id="notifDialog"><h3>Notifikasi</h3><p>Tidak ada pesan.</p><button onclick="this.closest('dialog').close()">Tutup</button></dialog>
+
+  <div class="overlay" id="loading"><div class="spinner"></div></div>
+
+  <script src="js/ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Daftar — Mockup v0.1</title>
+  <link rel="stylesheet" href="css/ui.css">
+</head>
+<body>
+  <div class="auth">
+    <div class="topbar">
+      <h1 class="brand">PETERNAKAN<br>HEWAN</h1>
+      <div class="actions">
+        <button class="icon" data-open="notif"><img src="img/bell.svg" alt="Notif"></button>
+        <button class="icon" data-open="lang"><img src="img/globe.svg" alt="Lang"></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 10px">Daftar</h2>
+      <p class="muted" style="margin:0 0 12px">Buat akun baru.</p>
+      <div class="field"><label>Nama</label><input class="input" placeholder="Nama kamu"></div>
+      <div class="field"><label>Email</label><input class="input" placeholder="nama@email.com"></div>
+      <div class="field"><label>Kata sandi</label><input class="input" type="password" placeholder="Minimal 6 karakter"></div>
+      <button class="btn" onclick="showSpinner(1500)">Buat akun</button>
+      <div class="row" style="margin-top:10px">
+        <a href="login.html"><b>Sudah punya akun? Masuk</b></a>
+      </div>
+    </div>
+  </div>
+
+  <dialog id="langDialog"><h3>Pilih bahasa</h3>
+    <button data-lang="id">Indonesia</button>
+    <button data-lang="en">English</button>
+    <button onclick="this.closest('dialog').close()">Tutup</button>
+  </dialog>
+  <dialog id="notifDialog"><h3>Notifikasi</h3><p>Tidak ada pesan.</p><button onclick="this.closest('dialog').close()">Tutup</button></dialog>
+
+  <div class="overlay" id="loading"><div class="spinner"></div></div>
+  <script src="js/ui.js"></script>
+</body>
+</html>
