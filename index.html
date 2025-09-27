@@ -1,96 +1,107 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Peternakan Hewan — Dashboard</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>PETERNAKAN HEWAN — Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="theme-dark">
-  <header class="topbar">
-    <div class="brand">PETERN<span>AKAN</span> HEWAN</div>
-    <div class="actions">
-      <button id="btnBell" class="icon-btn" aria-label="Notifications">🔔</button>
-      <select id="langSelect" class="select">
-        <option value="id" selected>ID</option>
+<body>
+<header class="topbar container">
+  <div class="brand">PETERNAKAN<br/>HEWAN</div>
+  <div class="top-actions">
+    <button id="btnNotif" class="icon-btn" aria-label="Notifikasi">🔔<span class="badge" id="notifCount">0</span></button>
+    <div class="select-wrap">
+      <select id="langSelect" aria-label="Bahasa">
+        <option value="id">ID</option>
         <option value="en">EN</option>
       </select>
-      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌗</button>
-      <button id="btnLogout" class="logout">Logout</button>
     </div>
-  </header>
+    <button id="themeToggle" class="icon-btn" aria-label="Tema">🌗</button>
+    <button id="logoutBtn" class="logout-btn" data-i18n="logout">Logout</button>
+  </div>
+</header>
 
-  <!-- Hero slider -->
-  <section class="hero">
-    <div class="hero-track" id="heroTrack">
-      <article class="hero-slide" data-i18n="hero1">
-        <div class="hero-title">Bonus Referral 5.000</div>
-        <div class="hero-sub">Undang temanmu, bonus otomatis masuk saldo.</div>
-      </article>
-      <article class="hero-slide" data-i18n="hero2">
-        <div class="hero-title">Diskon Biaya Tarik</div>
-        <div class="hero-sub">Biaya penarikan turun jadi 2% khusus minggu ini.</div>
-      </article>
-      <article class="hero-slide" data-i18n="hero3">
-        <div class="hero-title">Event Panen</div>
-        <div class="hero-sub">Kumpulkan hadiah harian dari panenmu.</div>
-      </article>
-    </div>
-    <div class="dots" id="heroDots"></div>
-  </section>
-
-  <!-- Summary cards -->
-  <section class="summary">
-    <div class="card">
-      <div class="card-title" data-i18n="totalAsset">Total Asset</div>
-      <div class="card-value">Rp <span id="sumTotal">0</span></div>
-    </div>
-    <div class="card">
-      <div class="card-title" data-i18n="quantAcc">Akun Kuantitatif</div>
-      <div class="card-value">Rp <span id="sumQuant">0</span></div>
-    </div>
-    <div class="card">
-      <div class="card-title" data-i18n="activeHolding">Holding Aktif</div>
-      <div class="card-value"><span id="sumHold">0</span></div>
+<main class="container stack-24">
+  <!-- HERO / PROMO SLIDER -->
+  <section class="card p-20">
+    <div class="slider" id="heroSlider" aria-roledescription="carousel">
+      <div class="slides">
+        <article class="slide hero hero-1">
+          <div class="hero-text">
+            <h2 data-i18n="promo_1_t">Diskon Biaya Tarik</h2>
+            <p data-i18n="promo_1_d">Biaya penarikan turun jadi 2% khusus minggu ini.</p>
+          </div>
+        </article>
+        <article class="slide hero hero-2">
+          <div class="hero-text">
+            <h2 data-i18n="promo_2_t">Bonus Undang Teman</h2>
+            <p data-i18n="promo_2_d">Undang temanmu, bonus otomatis masuk saldo.</p>
+          </div>
+        </article>
+        <article class="slide hero hero-3">
+          <div class="hero-text">
+            <h2 data-i18n="promo_3_t">Event Musim Panen</h2>
+            <p data-i18n="promo_3_d">Dapatkan hadiah acak setiap pembelian hewan.</p>
+          </div>
+        </article>
+      </div>
+      <div class="dots" id="sliderDots" role="tablist" aria-label="Slider Dots"></div>
     </div>
   </section>
 
-  <!-- Grid menu (3x3 per page) -->
-  <section class="grid-wrap">
-    <div class="grid-header">
-      <h2 data-i18n="menu">Menu</h2>
-      <div class="dots" id="gridDots"></div>
+  <!-- KPI -->
+  <section class="kpi grid-3">
+    <div class="card center">
+      <div class="kpi-title" data-i18n="total_asset">Total Asset</div>
+      <div class="kpi-value" id="kpiTotal">Rp 0</div>
     </div>
-    <div class="swiper" id="gridSwiper">
-      <div class="pages" id="gridPages">
-        <!-- page 1 -->
-        <div class="page">
-          <button class="tile" data-link="#withdraw"><span>💳</span><b data-i18n="withdraw">Menarik</b></button>
-          <button class="tile" data-link="#contact"><span>💬</span><b data-i18n="contact">Contact</b></button>
-          <button class="tile" data-link="#team"><span>👥</span><b data-i18n="team">Tim</b></button>
-          <button class="tile" data-link="#invite"><span>✉️</span><b data-i18n="invite">Mengundang</b></button>
-          <button class="tile" data-link="#news"><span>📰</span><b data-i18n="news">Berita</b></button>
-          <button class="tile" data-link="#summary"><span>📈</span><b data-i18n="summaryMenu">Ringkasan</b></button>
-          <button class="tile" data-link="#tasks"><span>🗂️</span><b data-i18n="tasks">Pusat Tugas</b></button>
-          <button class="tile" data-link="#notif"><span>🔔</span><b data-i18n="notifications">Notifikasi</b></button>
-          <button class="tile" data-link="#more"><span>➕</span><b data-i18n="more">Lainnya</b></button>
-        </div>
-        <!-- page 2 -->
-        <div class="page">
-          <button class="tile" data-link="#faq"><span>❓</span><b>FAQ</b></button>
-          <button class="tile" data-link="#promo"><span>🏷️</span><b data-i18n="promo">Promo</b></button>
-          <button class="tile" data-link="#leaderboard"><span>🏆</span><b data-i18n="leaderboard">Leaderboard</b></button>
-          <button class="tile" data-link="#settings"><span>⚙️</span><b data-i18n="settings">Pengaturan</b></button>
-          <button class="tile" data-link="#broadcast"><span>📣</span><b data-i18n="broadcast">Broadcast</b></button>
-          <button class="tile admin-only" data-link="#admin"><span>🛠️</span><b>Admin</b></button>
-          <button class="tile" data-link="#support"><span>🛟</span><b data-i18n="support">Bantuan</b></button>
-          <button class="tile" data-link="#guide"><span>📘</span><b data-i18n="guide">Panduan</b></button>
-          <button class="tile" data-link="#about"><span>ℹ️</span><b data-i18n="about">Tentang</b></button>
-        </div>
+    <div class="card center">
+      <div class="kpi-title" data-i18n="quant_account">Akun Kuantitatif</div>
+      <div class="kpi-value" id="kpiQuant">Rp 0</div>
+    </div>
+    <div class="card center">
+      <div class="kpi-title" data-i18n="holding_active">Holding Aktif</div>
+      <div class="kpi-value" id="kpiHold">0</div>
+    </div>
+  </section>
+
+  <!-- MENU GRID 3x3 with swipe -->
+  <section class="card p-12">
+    <div class="section-head">
+      <h3 data-i18n="menu">Menu</h3>
+      <div class="dots small" id="menuDots"></div>
+    </div>
+    <div class="grid-swiper" id="menuSwiper">
+      <div class="grid-pages" id="menuPages">
+        <!-- pages injected by JS -->
       </div>
     </div>
   </section>
+</main>
 
-  <script src="js/dashboard.js"></script>
+<!-- bottom nav -->
+<nav class="bottom-nav">
+  <a class="nav-item active" href="#" data-i18n="home">Home</a>
+  <a class="nav-item" href="#" data-i18n="farm">Farm</a>
+  <a class="nav-item" href="#" data-i18n="invite">Mengundang</a>
+  <a class="nav-item" href="login.html" data-i18n="me">Aku</a>
+</nav>
+
+<!-- Notifications modal -->
+<div class="modal" id="notifModal" aria-hidden="true" role="dialog" aria-label="Notifications">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 data-i18n="notifications">Notifikasi</h3>
+      <button class="icon-btn" data-close aria-label="Tutup">✖</button>
+    </div>
+    <div class="modal-body" id="notifList"></div>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/slider.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
