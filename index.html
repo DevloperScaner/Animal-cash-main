@@ -1,1 +1,17 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Peternakan Hewan</title><link rel="stylesheet" href="css/styles.css"/></head><body><div class="app"><header class="topbar"><div class="brand">PETERNAKAN HEWAN</div><div><select id="langPicker"><option value="id">ID</option><option value="en">EN</option></select><select id="themePicker"><option value="dark">Dark</option><option value="light">Light</option></select><a class="btn" href="login.html">Masuk</a></div></header><main class="content"><section class="card"><h3>Selamat datang</h3><p>Silakan <a href="login.html">Masuk</a> atau <a href="register.html">Daftar</a>.</p></section></main></div><script type="module" src="js/app.js"></script><script type="module">import { boot } from "./js/app.js"; boot();</script></body></html>
+<!DOCTYPE html><html lang="id"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Redirect…</title>
+<script type="module">
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { app } from "./shared/firebase.js";
+const auth = getAuth(app);
+onAuthStateChanged(auth, (u) => {
+  if (u) location.replace("./dashboard.html");
+  else location.replace("./login.html");
+});
+// Fallback jika auth gagal load:
+setTimeout(()=>{ if(!window.location.href.includes("login.html") && !window.location.href.includes("dashboard.html")) location.replace("./login.html"); }, 3000);
+</script>
+<style>html,body{height:100%;margin:0;background:#0b1218;color:#e6eef6;display:grid;place-items:center;font-family:system-ui,Segoe UI,Inter}
+.spinner{width:64px;height:64px;border:6px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:999px;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+</style></head><body><div class="spinner"></div></body></html>
