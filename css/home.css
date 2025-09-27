@@ -1,36 +1,42 @@
-/* Home / Dashboard — improved */
-.hero { position:relative; overflow:hidden; border-radius:18px; background:linear-gradient(180deg,#0f2238,#0b1727); }
-.hero .slides { display:flex; will-change: transform; }
-.hero .slide { flex:0 0 100%; display:flex; align-items:center; justify-content:space-between; padding:22px; min-height:140px; }
-.slide-img { height:100px; opacity:.95; filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); }
-.dots { position:absolute; right:16px; bottom:12px; display:flex; gap:8px; }
-.dots .dot { width:10px; height:10px; border-radius:50%; background:#ffffff33; }
+/* Home / Dashboard — compact, responsive, mockup-alike */
+.hero { position:relative; overflow:hidden; border-radius:16px; background:linear-gradient(180deg,#0f2238,#0b1727); }
+.hero .slides { display:flex; transition:transform .5s ease; will-change: transform; }
+.hero .slide { flex:0 0 100%; display:flex; gap:12px; align-items:center; justify-content:space-between; padding:16px; min-height:120px; }
+.slide-copy h2 { margin:0 0 6px; font-size:18px; }
+.slide-copy p { margin:0; font-size:13px; opacity:.85 }
+.slide-img { height:84px; opacity:.95; filter: drop-shadow(0 8px 18px rgba(0,0,0,.35)); }
+.dots { position:absolute; right:12px; bottom:10px; display:flex; gap:6px; }
+.dots .dot { width:8px; height:8px; border-radius:50%; background:#ffffff33; }
 .dots .dot.active { background:#fff; }
 
-.stats { display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin:12px 0; }
-.stat { background:var(--panel2,#0f1a2a); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:12px; }
-.stat-label { font-size:12px; opacity:.8 }
-.stat-value { font-size:18px; font-weight:700; margin-top:4px; }
+.stats { display:grid; grid-template-columns: repeat(3,1fr); gap:8px; margin:10px 0; }
+.stat { background:var(--panel2,#0f1a2a); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:10px; }
+.stat-label { font-size:11px; opacity:.8 }
+.stat-value { font-size:16px; font-weight:700; margin-top:2px; }
 
 .top-actions { display:flex; gap:8px; align-items:center; }
-.icon-btn { background:#0d1629; border:1px solid #1c2a43; color:#e5e7eb; border-radius:10px; padding:8px 10px; cursor:pointer }
+.icon-btn { background:#0d1629; border:1px solid #1c2a43; color:#e5e7eb; border-radius:10px; padding:6px 8px; cursor:pointer }
 .select-compact { background:#0d1629; border:1px solid #1c2a43; color:#e5e7eb; border-radius:10px; padding:6px 8px; }
 
-.grid-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-.grid-indicators { display:flex; gap:8px; }
-.grid-indicators .dot { width:8px; height:8px; border-radius:8px; background:#ffffff33 }
+.grid-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.grid-indicators { display:flex; gap:6px; }
+.grid-indicators .dot { width:6px; height:6px; border-radius:6px; background:#ffffff33 }
 .grid-indicators .dot.active { background:#fff }
 
 .swipe-grid { display:flex; overflow:hidden; scroll-snap-type:x mandatory; }
 .swipe-grid > .page { flex:0 0 100%; scroll-snap-align:start; }
-.icon-grid { display:grid; gap:12px; }
+.icon-grid { display:grid; gap:8px; }
+.icon-grid.compact .tile { min-height:78px; padding:12px 8px; }
 .icon-grid.cols3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
-.tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:16px 10px; border-radius:14px; background:#0d1629; border:1px solid #1f2a44; min-height:92px; text-decoration:none }
-.tile .icon { font-size:24px }
-.tile .label { font-size:13px; opacity:.95 }
+.tile { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; border-radius:12px; background:#0d1629; border:1px solid #1f2a44; text-decoration:none }
+.tile .icon { font-size:20px }
+.tile .label { font-size:12px; opacity:.95 }
 
 @media (min-width: 960px) {
-  .slide-img { height:120px }
-  .stats { grid-template-columns: repeat(3, 1fr); }
+  .slide-img { height:100px }
+  .slide-copy h2 { font-size:20px }
+  .slide-copy p { font-size:13px }
+  .stats { grid-template-columns: repeat(6, 1fr); }
   .icon-grid.cols3 { grid-template-columns: repeat(6, minmax(0,1fr)); }
+  .icon-grid.compact .tile { min-height:86px; }
 }
