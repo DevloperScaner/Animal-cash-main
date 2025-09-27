@@ -5,7 +5,7 @@ import { auth, db, collection, query, where, onSnapshot } from "../../shared/fir
 boot();
 await requireLogin();
 
-// Summary: assets / holdings / akun kuantitatif (dummy example = count holdings)
+// Summary realtime
 const elAssets = document.getElementById("sumAssets");
 const elHold = document.getElementById("sumHold");
 const elAcc = document.getElementById("sumAcc");
@@ -18,10 +18,24 @@ onSnapshot(query(collection(db,"orders"), where("uid","==", auth.currentUser.uid
 
 onSnapshot(query(collection(db,"holdings"), where("uid","==", auth.currentUser.uid)), snap => {
   elHold.textContent = String(snap.size);
-  elAcc.textContent = String(snap.size); // contoh kuantitatif = jumlah holding aktif
+  elAcc.textContent = String(snap.size);
 });
 
-// HERO slider auto 3s & dots
+// Theme toggle (persist)
+const btnTheme = document.getElementById("themeBtn");
+if (btnTheme) {
+  const apply = () => {
+    const theme = localStorage.getItem("theme") || "dark";
+    document.documentElement.dataset.theme = theme;
+  };
+  apply();
+  btnTheme.addEventListener("click", () => {
+    const next = (localStorage.getItem("theme") === "light") ? "dark" : "light";
+    localStorage.setItem("theme", next); apply();
+  });
+}
+
+// HERO slider 3s
 const hero = document.getElementById("heroSlides");
 const dotsWrap = document.getElementById("heroDots");
 let idx = 0;
@@ -38,7 +52,7 @@ let timer = setInterval(()=>go(idx+1), 3000);
 hero?.addEventListener("mouseenter", ()=> clearInterval(timer));
 hero?.addEventListener("mouseleave", ()=> timer = setInterval(()=>go(idx+1), 3000));
 
-// Swipe grid paging
+// Swipe grid paging (touch)
 const grid = document.getElementById("menuGrid");
 const gridDots = document.getElementById("gridDots");
 if (grid) {
@@ -49,12 +63,11 @@ if (grid) {
     dot.addEventListener("click", ()=> { gi=i; grid.style.transform = `translateX(-${gi*100}%)`; syncDots(); });
   });
   function syncDots(){ [...gridDots.children].forEach((d,k)=> d.classList.toggle("active", k===gi)); }
-  let startX=0, cur=0;
-  grid.addEventListener("touchstart", e=> { startX=e.touches[0].clientX; cur=gi; }, {passive:true});
-  grid.addEventListener("touchmove", e=> { const dx=e.touches[0].clientX-startX; grid.style.transform=`translateX(${dx/innerWidth*100 - gi*100}%)`; }, {passive:true});
+  let startX=0;
+  grid.addEventListener("touchstart", e=> { startX=e.touches[0].clientX; }, {passive:true});
   grid.addEventListener("touchend", e=> {
     const dx=(e.changedTouches[0].clientX-startX);
-    if (Math.abs(dx) > 50) gi = Math.max(0, Math.min(pages.length-1, gi + (dx<0?1:-1)));
+    if (Math.abs(dx) > 40) gi = Math.max(0, Math.min(pages.length-1, gi + (dx<0?1:-1)));
     grid.style.transform = `translateX(-${gi*100}%)`; syncDots();
-  });
+  }, {passive:true});
 }
