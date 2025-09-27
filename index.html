@@ -1,17 +1,96 @@
-<!DOCTYPE html><html lang="id"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Redirect…</title>
-<script type="module">
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { app } from "./shared/firebase.js";
-const auth = getAuth(app);
-onAuthStateChanged(auth, (u) => {
-  if (u) location.replace("./dashboard.html");
-  else location.replace("./login.html");
-});
-// Fallback jika auth gagal load:
-setTimeout(()=>{ if(!window.location.href.includes("login.html") && !window.location.href.includes("dashboard.html")) location.replace("./login.html"); }, 3000);
-</script>
-<style>html,body{height:100%;margin:0;background:#0b1218;color:#e6eef6;display:grid;place-items:center;font-family:system-ui,Segoe UI,Inter}
-.spinner{width:64px;height:64px;border:6px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:999px;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-</style></head><body><div class="spinner"></div></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Peternakan Hewan — Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="theme-dark">
+  <header class="topbar">
+    <div class="brand">PETERN<span>AKAN</span> HEWAN</div>
+    <div class="actions">
+      <button id="btnBell" class="icon-btn" aria-label="Notifications">🔔</button>
+      <select id="langSelect" class="select">
+        <option value="id" selected>ID</option>
+        <option value="en">EN</option>
+      </select>
+      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">🌗</button>
+      <button id="btnLogout" class="logout">Logout</button>
+    </div>
+  </header>
+
+  <!-- Hero slider -->
+  <section class="hero">
+    <div class="hero-track" id="heroTrack">
+      <article class="hero-slide" data-i18n="hero1">
+        <div class="hero-title">Bonus Referral 5.000</div>
+        <div class="hero-sub">Undang temanmu, bonus otomatis masuk saldo.</div>
+      </article>
+      <article class="hero-slide" data-i18n="hero2">
+        <div class="hero-title">Diskon Biaya Tarik</div>
+        <div class="hero-sub">Biaya penarikan turun jadi 2% khusus minggu ini.</div>
+      </article>
+      <article class="hero-slide" data-i18n="hero3">
+        <div class="hero-title">Event Panen</div>
+        <div class="hero-sub">Kumpulkan hadiah harian dari panenmu.</div>
+      </article>
+    </div>
+    <div class="dots" id="heroDots"></div>
+  </section>
+
+  <!-- Summary cards -->
+  <section class="summary">
+    <div class="card">
+      <div class="card-title" data-i18n="totalAsset">Total Asset</div>
+      <div class="card-value">Rp <span id="sumTotal">0</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title" data-i18n="quantAcc">Akun Kuantitatif</div>
+      <div class="card-value">Rp <span id="sumQuant">0</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title" data-i18n="activeHolding">Holding Aktif</div>
+      <div class="card-value"><span id="sumHold">0</span></div>
+    </div>
+  </section>
+
+  <!-- Grid menu (3x3 per page) -->
+  <section class="grid-wrap">
+    <div class="grid-header">
+      <h2 data-i18n="menu">Menu</h2>
+      <div class="dots" id="gridDots"></div>
+    </div>
+    <div class="swiper" id="gridSwiper">
+      <div class="pages" id="gridPages">
+        <!-- page 1 -->
+        <div class="page">
+          <button class="tile" data-link="#withdraw"><span>💳</span><b data-i18n="withdraw">Menarik</b></button>
+          <button class="tile" data-link="#contact"><span>💬</span><b data-i18n="contact">Contact</b></button>
+          <button class="tile" data-link="#team"><span>👥</span><b data-i18n="team">Tim</b></button>
+          <button class="tile" data-link="#invite"><span>✉️</span><b data-i18n="invite">Mengundang</b></button>
+          <button class="tile" data-link="#news"><span>📰</span><b data-i18n="news">Berita</b></button>
+          <button class="tile" data-link="#summary"><span>📈</span><b data-i18n="summaryMenu">Ringkasan</b></button>
+          <button class="tile" data-link="#tasks"><span>🗂️</span><b data-i18n="tasks">Pusat Tugas</b></button>
+          <button class="tile" data-link="#notif"><span>🔔</span><b data-i18n="notifications">Notifikasi</b></button>
+          <button class="tile" data-link="#more"><span>➕</span><b data-i18n="more">Lainnya</b></button>
+        </div>
+        <!-- page 2 -->
+        <div class="page">
+          <button class="tile" data-link="#faq"><span>❓</span><b>FAQ</b></button>
+          <button class="tile" data-link="#promo"><span>🏷️</span><b data-i18n="promo">Promo</b></button>
+          <button class="tile" data-link="#leaderboard"><span>🏆</span><b data-i18n="leaderboard">Leaderboard</b></button>
+          <button class="tile" data-link="#settings"><span>⚙️</span><b data-i18n="settings">Pengaturan</b></button>
+          <button class="tile" data-link="#broadcast"><span>📣</span><b data-i18n="broadcast">Broadcast</b></button>
+          <button class="tile admin-only" data-link="#admin"><span>🛠️</span><b>Admin</b></button>
+          <button class="tile" data-link="#support"><span>🛟</span><b data-i18n="support">Bantuan</b></button>
+          <button class="tile" data-link="#guide"><span>📘</span><b data-i18n="guide">Panduan</b></button>
+          <button class="tile" data-link="#about"><span>ℹ️</span><b data-i18n="about">Tentang</b></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
